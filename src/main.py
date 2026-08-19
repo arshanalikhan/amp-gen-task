@@ -13,11 +13,19 @@ keys_env = os.environ.get("GEMINI_API_KEYS")
 if not keys_env:
     raise ValueError("Please set the GEMINI_API_KEYS environment variable (comma-separated).")
 
-# Parse multiple keys from the environment
 api_keys = [k.strip() for k in keys_env.split(",") if k.strip()]
 
 PDF_PATH = "data/BoQ_CBRI_Principals_Residence.pdf"
 TEMPLATE_PATH = "data/AMP_Passport_Template.xlsx"
+
+# List of Flash models discovered from our check_models.py script
+FALLBACK_MODELS = [
+    "gemini-3.6-flash",
+    "gemini-3.7-flash",
+    "gemini-3.5-flash",
+    "gemini-flash-latest",
+    "gemini-3.1-flash-lite"
+]
 
 meta_prompt = """
 Analyze the first page of this uploaded document.
@@ -49,12 +57,34 @@ Respond ONLY with the JSON array. Do NOT extract items outside the range {start}
 """
 
 # ---------------------------------------------------------
-# 2. STATE TRACKING & CHUNKING SETUP
+# 2. MODEL ROTATION HELPER
+# ---------------------------------------------------------
+def generate_with_fallback(client, contents):
+    """Tries a list of models. If one is overloaded (503) or missing (404), tries the next."""
+    for model_name in FALLBACK_MODELS:
+        try:
+            response = client.models.generate_content(
+                model=model_name,
+                contents=contents,
+                config=types.GenerateContentConfig(response_mime_type="application/json")
+            )
+            return response, model_name
+        except Exception as e:
+            err_str = str(e)
+            if "503" in err_str or "404" in err_str:
+                print(f"    [!] Model {model_name} failed (503/404). Falling back to next model...")
+                continue
+            else:
+                # If it's a 429 Quota Error, we raise it so the outer Key Rotation loop catches it
+                raise e
+    raise RuntimeError("All fallback models are currently unavailable or overloaded.")
+
+# ---------------------------------------------------------
+# 3. STATE TRACKING & CHUNKING SETUP
 # ---------------------------------------------------------
 metadata_done = False
 meta_data = {}
 
-# 10 micro-chunks to prevent token and quota overflows
 chunks = [
     (1, 7), (8, 14), (15, 21), (22, 28), (29, 35),
     (36, 42), (43, 49), (50, 56), (57, 61), (62, 64)
@@ -62,14 +92,14 @@ chunks = [
 completed_chunks = set()
 all_extracted_items = []
 
-print(f"Starting Stateful Chunked Pipeline with {len(api_keys)} API keys loaded.\n")
+print(f"Starting Bulletproof Pipeline with {len(api_keys)} Keys and {len(FALLBACK_MODELS)} Models.\n")
 
 # ---------------------------------------------------------
-# 3. STATEFUL KEY ROTATION & EXTRACTION LOOP
+# 4. STATEFUL KEY ROTATION & EXTRACTION LOOP
 # ---------------------------------------------------------
 for idx, key in enumerate(api_keys):
     if metadata_done and len(completed_chunks) == len(chunks):
-        break  # Everything is complete!
+        break  
         
     try:
         print(f"\n--- Attempting execution with API Key {idx + 1} of {len(api_keys)} ---")
@@ -78,43 +108,31 @@ for idx, key in enumerate(api_keys):
         print("Uploading PDF to Gemini...")
         boq_file = client.files.upload(file=PDF_PATH, config={'display_name': f'BoQ_Key_{idx}'})
         
-        # Step A: Metadata Extraction (Bonus B3)
+        # Step A: Metadata Extraction
         if not metadata_done:
             print("Extracting Building Metadata...")
-            meta_response = client.models.generate_content(
-                model='gemini-2.5-flash',
-                contents=[boq_file, meta_prompt],
-                config=types.GenerateContentConfig(response_mime_type="application/json")
-            )
+            meta_response, used_model = generate_with_fallback(client, [boq_file, meta_prompt])
             meta_data = json.loads(meta_response.text)
             metadata_done = True
-            print("✔ Metadata extraction successful.")
-            print("Waiting 15 seconds to respect request quotas...")
-            time.sleep(15)
+            print(f"✔ Metadata extraction successful (using {used_model}).")
+            time.sleep(10)
 
-        # Step B: Micro-Batch BoQ Extraction (Core Task)
+        # Step B: Micro-Batch BoQ Extraction
         for start, end in chunks:
             if (start, end) in completed_chunks:
-                continue  # Skip chunks already processed
+                continue 
                 
             print(f"Extracting Line Items {start} to {end}...")
             chunk_prompt = extract_prompt_template.format(start=start, end=end)
             
-            boq_response = client.models.generate_content(
-                model='gemini-2.5-flash',
-                contents=[boq_file, chunk_prompt],
-                config=types.GenerateContentConfig(response_mime_type="application/json")
-            )
-            
+            boq_response, used_model = generate_with_fallback(client, [boq_file, chunk_prompt])
             chunk_items = json.loads(boq_response.text)
             all_extracted_items.extend(chunk_items)
             completed_chunks.add((start, end))
-            print(f"✔ Successfully extracted items {start} to {end}.")
+            print(f"✔ Successfully extracted items {start} to {end} (using {used_model}).")
             
-            # Pause between chunks to prevent hitting Requests-Per-Minute limits
             if len(completed_chunks) < len(chunks):
-                print("Waiting 15 seconds to respect request quotas...")
-                time.sleep(15)
+                time.sleep(10)
             
         print("\n✔ All chunks processed successfully!")
         
@@ -127,14 +145,13 @@ for idx, key in enumerate(api_keys):
             else:
                 print("All provided API keys exhausted.")
         else:
-            print("Non-rate-limit error encountered. Halting execution.")
+            print("Fatal error encountered. Halting execution.")
             break
 
-# Ensure output directory exists
 os.makedirs("output", exist_ok=True)
 
 # ---------------------------------------------------------
-# 4. SAVE RAW JSON OUTPUTS
+# 5. SAVE RAW JSON OUTPUTS & EXCEL
 # ---------------------------------------------------------
 print("\nSaving Output Files...")
 
@@ -146,9 +163,6 @@ with open("output/passport.json", "w") as f:
     json.dump(all_extracted_items, f, indent=4)
 print(f"✔ Extracted {len(all_extracted_items)} items saved to output/passport.json")
 
-# ---------------------------------------------------------
-# 5. MAP TO EXCEL TEMPLATE & APPLY CARBON FACTORS (Bonus B2)
-# ---------------------------------------------------------
 print("Mapping data to Excel Template and applying Carbon Factors...")
 df_template = pd.read_excel(TEMPLATE_PATH, sheet_name="Material Passport", header=2)
 columns = df_template.columns.tolist()
@@ -164,7 +178,6 @@ for item in all_extracted_items:
     row["Material Category"] = item.get("Material Category")
     row["Discipline"] = item.get("Discipline")
     
-    # Automated Carbon & Density Lookup
     mat_cat = str(item.get("Material Category", "")).lower()
     if "concrete" in mat_cat:
         row["Density (kg/m³)"] = 2400
@@ -193,9 +206,6 @@ df_output = pd.DataFrame(new_rows)
 df_output.to_excel("output/passport_filled.xlsx", index=False)
 print("✔ Excel file saved to output/passport_filled.xlsx")
 
-# ---------------------------------------------------------
-# 6. GENERATE VISUALIZATION CHART
-# ---------------------------------------------------------
 if not df_output.empty and "Material Category" in df_output.columns:
     print("Generating Material Distribution Chart...")
     df_plot = df_output["Material Category"].value_counts().reset_index()
