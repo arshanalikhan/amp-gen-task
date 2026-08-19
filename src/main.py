@@ -151,74 +151,74 @@ for idx, key in enumerate(api_keys):
 os.makedirs("output", exist_ok=True)
 
 # ---------------------------------------------------------
-# 5. SAVE RAW JSON OUTPUTS & EXCEL
+# 5. MAP TO EXCEL TEMPLATE & APPLY CARBON FACTORS (Bonus B2)
 # ---------------------------------------------------------
-print("\nSaving Output Files...")
-
-with open("output/building_meta.json", "w") as f:
-    json.dump(meta_data, f, indent=4)
-print("✔ Metadata saved to output/building_meta.json")
-
-with open("output/passport.json", "w") as f:
-    json.dump(all_extracted_items, f, indent=4)
-print(f"✔ Extracted {len(all_extracted_items)} items saved to output/passport.json")
-
 print("Mapping data to Excel Template and applying Carbon Factors...")
-df_template = pd.read_excel(TEMPLATE_PATH, sheet_name="Material Passport", header=2)
-columns = df_template.columns.tolist()
 
-new_rows = []
+import openpyxl
+
+# Load the original template workbook to preserve formatting, sheets, and headers
+wb = openpyxl.load_workbook(TEMPLATE_PATH)
+ws = wb["Material Passport"]
+
+# Clear any existing example rows (rows 5 onwards, keeping headers rows 1-4)
+# Row 4 is the first example row in the template (0-indexed or 1-indexed in openpyxl: rows 1,2,3,4 are headers/examples)
+# Let's inspect the exact row indices:
+# Row 1: Title
+# Row 2: Category headers (IDENTIFICATION, ELEMENT & LOCATION, etc.)
+# Row 3: Column names (GMAP Id, BOQ Item No., etc.)
+# Row 4: Example 1
+# So we can remove rows from row 4 downwards, then append our new rows!
+
+max_row = ws.max_row
+if max_row >= 4:
+    ws.delete_rows(4, max_row - 3)
+
+# Get column names from row 3 of the template
+headers = [cell.value for cell in ws[3]]
+
+# Map our extracted items and append to the worksheet
 for item in all_extracted_items:
-    row = {col: "" for col in columns} 
-    row["BOQ Item No."] = item.get("BOQ Item No.")
-    row["Description"] = item.get("Description")
-    row["Original Quantity"] = item.get("Original Quantity")
-    row["Original Unit"] = item.get("Original Unit")
-    row["Schedule Item Code"] = item.get("Schedule Item Code")
-    row["Material Category"] = item.get("Material Category")
-    row["Discipline"] = item.get("Discipline")
+    row_data = []
+    item_no = item.get("BOQ Item No.")
+    desc = item.get("Description")
+    qty = item.get("Original Quantity")
+    unit = item.get("Original Unit")
+    code = item.get("Schedule Item Code")
+    mat_cat = item.get("Material Category")
+    discipline = item.get("Discipline")
     
-    mat_cat = str(item.get("Material Category", "")).lower()
-    if "concrete" in mat_cat:
-        row["Density (kg/m³)"] = 2400
-        row["GWP / kg (kg CO₂e/kg)"] = 0.15
-        row["Comment"] = "ICE Database V3.0 (Concrete)"
-    elif "steel" in mat_cat:
-        row["Density (kg/m³)"] = 7850
-        row["GWP / kg (kg CO₂e/kg)"] = 2.50
-        row["Comment"] = "ICE Database V3.0 (Steel)"
-    elif "brick" in mat_cat:
-        row["Density (kg/m³)"] = 1900
-        row["GWP / kg (kg CO₂e/kg)"] = 0.24
-        row["Comment"] = "ICE Database V3.0 (Bricks)"
-    elif "wood" in mat_cat or "timber" in mat_cat:
-        row["Density (kg/m³)"] = 650
-        row["GWP / kg (kg CO₂e/kg)"] = 0.45
-        row["Comment"] = "ICE Database V3.0 (Timber/Wood)"
-    elif "earth" in mat_cat or "sand" in mat_cat:
-        row["Density (kg/m³)"] = 1600
-        row["GWP / kg (kg CO₂e/kg)"] = 0.01
-        row["Comment"] = "ICE Database V3.0 (Aggregates/Sand)"
-        
-    new_rows.append(row)
+    # Calculate carbon factors
+    density, gwp, comment = "", "", ""
+    mat_lower = str(mat_cat).lower()
+    if "concrete" in mat_lower:
+        density, gwp, comment = 2400, 0.15, "ICE Database V3.0 (Concrete)"
+    elif "steel" in mat_lower:
+        density, gwp, comment = 7850, 2.50, "ICE Database V3.0 (Steel)"
+    elif "brick" in mat_lower:
+        density, gwp, comment = 1900, 0.24, "ICE Database V3.0 (Bricks)"
+    elif "wood" in mat_lower or "timber" in mat_lower:
+        density, gwp, comment = 650, 0.45, "ICE Database V3.0 (Timber/Wood)"
+    elif "earth" in mat_lower or "sand" in mat_lower:
+        density, gwp, comment = 1600, 0.01, "ICE Database V3.0 (Aggregates/Sand)"
 
-df_output = pd.DataFrame(new_rows)
-df_output.to_excel("output/passport_filled.xlsx", index=False)
-print("✔ Excel file saved to output/passport_filled.xlsx")
+    # Build row mapping based on column headers
+    row_dict = {
+        "BOQ Item No.": item_no,
+        "Description": desc,
+        "Original Quantity": qty,
+        "Original Unit": unit,
+        "Schedule Item Code": code,
+        "Material Category": mat_cat,
+        "Discipline": discipline,
+        "Density (kg/m³)": density,
+        "GWP / kg (kg CO₂e/kg)": gwp,
+        "Comment": comment
+    }
+    
+    # Construct list matching template columns
+    row_values = [row_dict.get(col, "") for col in headers]
+    ws.append(row_values)
 
-if not df_output.empty and "Material Category" in df_output.columns:
-    print("Generating Material Distribution Chart...")
-    df_plot = df_output["Material Category"].value_counts().reset_index()
-    df_plot.columns = ["Material Category", "Count"]
-
-    plt.figure(figsize=(10, 6))
-    plt.bar(df_plot["Material Category"], df_plot["Count"], color="#2ecc71")
-    plt.title("Distribution of Materials across BoQ Items")
-    plt.xlabel("Material Category")
-    plt.ylabel("Number of Line Items")
-    plt.xticks(rotation=45, ha="right")
-    plt.tight_layout()
-    plt.savefig("output/visualization.png", dpi=300)
-    print("✔ Visualization chart saved to output/visualization.png")
-
-print("\nPipeline execution complete! All deliverables generated.")
+wb.save("output/passport_filled.xlsx")
+print("✔ Excel file saved cleanly to output/passport_filled.xlsx preserving template headers.")
