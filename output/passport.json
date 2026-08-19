@@ -1,1 +1,605 @@
-[]
+[
+    {
+        "BOQ Item No.": "1.",
+        "Description": "Earth work in excavation in foundation trenches or drains not exceeding 1.5 m in width or 10 Sq.m on plan including dressing of sides and ramming of bottoms, lift upto 1.5 m including getting out the excavated soil and disposal of surplus excavated soil as directed within a lead of 50 m in all types of soil except rocks.",
+        "Original Quantity": 32.0,
+        "Original Unit": "Cu.m",
+        "Schedule Item Code": "2.8",
+        "Material Category": "Earthwork",
+        "Discipline": "Civil & Sitework"
+    },
+    {
+        "BOQ Item No.": "2.",
+        "Description": "Filling available excavated earth (excluding rock) in trenches, plinth, sides of foundations etc. in layers not exceeding 20 cm in depth consolidating each deposited layer by ramming & watering, lead upto 50 m and lift upto 1.5 m.",
+        "Original Quantity": 12.0,
+        "Original Unit": "Cu.m",
+        "Schedule Item Code": "2.26",
+        "Material Category": "Earthwork",
+        "Discipline": "Civil & Sitework"
+    },
+    {
+        "BOQ Item No.": "3.",
+        "Description": "Filling the plinth with fine sand under floors including watering, ramming consolidating and dressing complete.",
+        "Original Quantity": 11.0,
+        "Original Unit": "Cu.m",
+        "Schedule Item Code": "2.28",
+        "Material Category": "Earthwork",
+        "Discipline": "Civil & Sitework"
+    },
+    {
+        "BOQ Item No.": "4.",
+        "Description": "Surface dressing of the ground including removing vegetation, and inequalities not exceeding 15 cm deep and disposal of rubbish, lead upto 50 m and lift upto 1.5 m in soft/loose soil.",
+        "Original Quantity": 1.4,
+        "Original Unit": "100 Sq.m",
+        "Schedule Item Code": "2.29.1",
+        "Material Category": "Earthwork",
+        "Discipline": "Civil & Sitework"
+    },
+    {
+        "BOQ Item No.": "5.",
+        "Description": "Providing and injecting chemical emulsion for PRECONSTRUCTIONAL anti termite treatment and creating a chemical barrier under and alround the column pits, wall trenches, basement excavation, top surface of plinth filling junction of wall and floor, along the external perimetre of building, expansion joints, surroundings of pipes & conduits etc. complete (plinth area of the building at ground floor only shall be measured) with Aldrin Emulsifiable Concentrate (0.5%)",
+        "Original Quantity": 90.6,
+        "Original Unit": "Sq.m",
+        "Schedule Item Code": "2.35.2",
+        "Material Category": "Chemicals",
+        "Discipline": "Civil & Sitework"
+    },
+    {
+        "BOQ Item No.": "6.",
+        "Description": "Providing and laying cement concrete in footings and bases for columns, excluding the cost of centring and shuttering with 1:5:10 (1 cement : 5 coarse sand : 10 graded stone aggregate 40 mm nominal size).",
+        "Original Quantity": 8.0,
+        "Original Unit": "Cu.m",
+        "Schedule Item Code": "4.5.10",
+        "Material Category": "Concrete",
+        "Discipline": "Structural"
+    },
+    {
+        "BOQ Item No.": "7.",
+        "Description": "Providing and laying cement concrete in retaining walls, return walls, walls (any thickness) including attached pilasters, buttresses, plinth, string courses, fillets etc. upto floor two level, excluding the cost of centring and shuttering with 1:5:10 (1 cement : 5 fine sand : 10 graded stone aggregate 40 mm nominal size)",
+        "Original Quantity": 7.3,
+        "Original Unit": "Cu.m",
+        "Schedule Item Code": "4.6.11",
+        "Material Category": "Concrete",
+        "Discipline": "Structural"
+    },
+    {
+        "BOQ Item No.": "8.",
+        "Description": "Providing and laying upto floor two level cement concrete in string or lacing courses, parapets, copings, bed blocks anchor blocks, plain window sills and the like excluding centring and shuttering, etc. with 1:2:4 (1 cement : 2 coarse sand : 4 graded stone aggregate 20 mm nominal size).",
+        "Original Quantity": 0.1,
+        "Original Unit": "Cu.m",
+        "Schedule Item Code": "4.11.1",
+        "Material Category": "Concrete",
+        "Discipline": "Structural"
+    },
+    {
+        "BOQ Item No.": "9.",
+        "Description": "Providing and laying damp-proof course 40 mm thick with cement concrete 1:2:4 (1 cement : 2 coarse sand : 4 graded stone aggregate 12.5 mm nominal size)",
+        "Original Quantity": 14.4,
+        "Original Unit": "Sq.m",
+        "Schedule Item Code": "4.24",
+        "Material Category": "Concrete",
+        "Discipline": "Civil & Sitework"
+    },
+    {
+        "BOQ Item No.": "10.",
+        "Description": "Applying a coat of residual petroleum bitumen of penetration 80/100 of approved quality using 1.7 Kg. per square metre on damp proof course after cleaning the surface with brushes and finally with a piece of cloth lightly soaked in kerosene oil.",
+        "Original Quantity": 14.4,
+        "Original Unit": "Sq.m",
+        "Schedule Item Code": "4.27",
+        "Material Category": "Bitumen",
+        "Discipline": "Civil & Sitework"
+    },
+    {
+        "BOQ Item No.": "11.",
+        "Description": "Reinforced cement concrete work in suspended floors, roofs, landings and balconies upto floor two level excluding cost of centring, shuttering, finishing and reinforcement with 1:2:4 (1 cement : 2 coarse sand : 4 graded stone aggregate 20 mm nominal size)",
+        "Original Quantity": 11.3,
+        "Original Unit": "Cu.m",
+        "Schedule Item Code": "5.3",
+        "Material Category": "Concrete",
+        "Discipline": "Structural"
+    },
+    {
+        "BOQ Item No.": "12.",
+        "Description": "Reinforced cement concrete work in shelves upto floor two level excluding the cost of centering and shuttering and reinforcement with 1:2:4 (1 cement : 2 coarse sand : 4 graded stone aggregate 20 mm nominal size).",
+        "Original Quantity": 1.0,
+        "Original Unit": "Cu.m",
+        "Schedule Item Code": "5.4",
+        "Material Category": "Concrete",
+        "Discipline": "Architectural"
+    },
+    {
+        "BOQ Item No.": "13.",
+        "Description": "Reinforced cement concrete work in chajjas facias and gutters upto floor two level including throating of plastered drip and moulding excluding cost of centring, shuttering, finishing and reinforcement with 1:2:4 (1 cement : 2 coarse sand : 4 graded stone aggregate 20 mm nominal size).",
+        "Original Quantity": 0.6,
+        "Original Unit": "Cu.m",
+        "Schedule Item Code": "5.5",
+        "Material Category": "Concrete",
+        "Discipline": "Structural"
+    },
+    {
+        "BOQ Item No.": "14.",
+        "Description": "Reinforced cement concrete work in lintels, beams, plinth beams and bresummers upto floor two level excluding the cost of centring, shuttering, finishing and reinforcement with 1:2:4 (1 cement : 2 coarse sand : 4 graded stone aggregate 20 mm nominal size).",
+        "Original Quantity": 1.7,
+        "Original Unit": "Cu.m",
+        "Schedule Item Code": "5.6.3",
+        "Material Category": "Concrete",
+        "Discipline": "Structural"
+    },
+    {
+        "BOQ Item No.": "15.",
+        "Description": "Reinforced cement concrete work in columns, pillars, piers, abutments, posts and struts upto floor two level excluding the cost of centring, shuttering, finishing and reinforcement with 1:2:4 (1 cement : 2 coarse sand : 4 graded stone aggregate 20 mm nominal size).",
+        "Original Quantity": 0.1,
+        "Original Unit": "Cu.m",
+        "Schedule Item Code": "5.7.3",
+        "Material Category": "Concrete",
+        "Discipline": "Structural"
+    },
+    {
+        "BOQ Item No.": "16.",
+        "Description": "Centring and shuttering including strutting, proping etc. and removal of form work for :\ni) Suspended floors, roofs, landings balconies and chajjas.\nii) Shelves\niii) Lintels, beams, plinth beams, girders bressumers and cantilever.\niv) Columns, pillars, posts and struts.\nv) Vertical and horizontal fins individually or forming box louvers band and facias.",
+        "Original Quantity": null,
+        "Original Unit": null,
+        "Schedule Item Code": "5.14",
+        "Material Category": "Wood",
+        "Discipline": "Structural"
+    },
+    {
+        "BOQ Item No.": "17.",
+        "Description": "Reinforcement for RCC work including bending binding and placing in position complete.\ni) Mild steel and medium tensile steel bars.\nii) Cold twisted bars",
+        "Original Quantity": null,
+        "Original Unit": "Kg.",
+        "Schedule Item Code": "5.29",
+        "Material Category": "Steel",
+        "Discipline": "Structural"
+    },
+    {
+        "BOQ Item No.": "18.",
+        "Description": "Providing and laying upto floor two level RCC in string courses, bands, copings, bed plates, anchor blocks, plain window sills and the like excluding the cost of centering, shuttering, finishing and reinforcement with 1:2:4 (1 cement : 2 coarse sand : 4 graded stone aggregate 20 mm nominal size).",
+        "Original Quantity": 0.8,
+        "Original Unit": "Cu.m",
+        "Schedule Item Code": "5.16",
+        "Material Category": "Concrete",
+        "Discipline": "Structural"
+    },
+    {
+        "BOQ Item No.": "19.",
+        "Description": "Brick work with bricks of class designation____ in foundation and plinth in cement mortar 1:6 (1 cement : 6 coarse sand).",
+        "Original Quantity": 17.0,
+        "Original Unit": "Cu.m",
+        "Schedule Item Code": "6.1.14/6.5.1\n6.5.2",
+        "Material Category": "Brick",
+        "Discipline": "Civil & Sitework"
+    },
+    {
+        "BOQ Item No.": "20.",
+        "Description": "Brick work with bricks of class designation____ in super structure above plinth upto floor two level in cement mortar 1:6 (1 cement : 6 coarse sand).",
+        "Original Quantity": 40.3,
+        "Original Unit": "Cu.m",
+        "Schedule Item Code": "6.1.14/6.3\n6.5.1/6.5.2",
+        "Material Category": "Brick",
+        "Discipline": "Civil & Sitework"
+    },
+    {
+        "BOQ Item No.": "21.",
+        "Description": "Brick work 7 cm thick with bricks of class designation ______ in super structure upto floor two level in cement mortar 1:3 (1 cement : 3 coarse sand).",
+        "Original Quantity": 0.9,
+        "Original Unit": "Sq.m.",
+        "Schedule Item Code": "6.13/6.21/\n6.5.1/6.5.2",
+        "Material Category": "Brick",
+        "Discipline": "Civil & Sitework"
+    },
+    {
+        "BOQ Item No.": "22.",
+        "Description": "Half brick masonry with bricks of class designation _____ in foundation & plinth in cement mortar 1:4 (1 cement : 4 coarse sand)",
+        "Original Quantity": 4.8,
+        "Original Unit": "Sq.m",
+        "Schedule Item Code": "6.18.4/6.21 6.5.1/6.5.2",
+        "Material Category": "Brick",
+        "Discipline": "Civil & Sitework"
+    },
+    {
+        "BOQ Item No.": "23.",
+        "Description": "Half brick masonry with bricks of class designation _____ in super structure upto floor two level in cement mortar 1:4 (1 cement : 4 coarse sand).",
+        "Original Quantity": 18.0,
+        "Original Unit": "Sq.m",
+        "Schedule Item Code": "6.18.4/6.19.1 6.20/6.21.1/6.21.2",
+        "Material Category": "Brick",
+        "Discipline": "Civil & Sitework"
+    },
+    {
+        "BOQ Item No.": "24.",
+        "Description": "Providing _____________ wood work in frames of doors, windows, clerestory windows and other frames, wrought framed and fixed in position.",
+        "Original Quantity": 3.5,
+        "Original Unit": "10 Cubic decimetre",
+        "Schedule Item Code": null,
+        "Material Category": "Wood",
+        "Discipline": "Architectural"
+    },
+    {
+        "BOQ Item No.": "25.",
+        "Description": "Providing and fixing 35 mm thick battended and framed door shutters of ______________ wood including bright finished or/and black enamelled MS butt hinges with necessary screws.",
+        "Original Quantity": 18.0,
+        "Original Unit": "Sq.m",
+        "Schedule Item Code": "9.26.4",
+        "Material Category": "Wood",
+        "Discipline": "Architectural"
+    },
+    {
+        "BOQ Item No.": "26.",
+        "Description": "Providing and fixing 25 mm thick flush door (for cupboard) shutters core of block board construction with frame of Ist class hard wood and well matched Ist class teak ply veneering with vertical grains or cross bands and face veneer on one face and commercial ply veneering with vertical grains or cross bands and face veneer on other face of shutters, including nickel plated bright finished MS piano hinges with necessary screws.",
+        "Original Quantity": 4.7,
+        "Original Unit": "Sq.m",
+        "Schedule Item Code": "9.51",
+        "Material Category": "Wood",
+        "Discipline": "Architectural"
+    },
+    {
+        "BOQ Item No.": "27.",
+        "Description": "Providing 50x50x50 mm 2nd class Teak wood plugs including cutting brick work and fixing in cement mortar 1:3 (1 cement : 3 fine sand) and making good the walls etc.",
+        "Original Quantity": 20.0,
+        "Original Unit": "each",
+        "Schedule Item Code": null,
+        "Material Category": "Wood",
+        "Discipline": "Architectural"
+    },
+    {
+        "BOQ Item No.": "28.",
+        "Description": "Providing and fixing M.S.oxidised fan light ventilator catch with necessary screws etc. complete.",
+        "Original Quantity": 6.0,
+        "Original Unit": "each",
+        "Schedule Item Code": "9.127.3",
+        "Material Category": "Steel",
+        "Discipline": "Architectural"
+    },
+    {
+        "BOQ Item No.": "29.",
+        "Description": "Providing and fixing 90 mm oxidised M.S. hasp and staple (safety type) with necessaary screws etc. complete.",
+        "Original Quantity": 2.0,
+        "Original Unit": "each",
+        "Schedule Item Code": "9.127.3",
+        "Material Category": "Steel",
+        "Discipline": "Architectural"
+    },
+    {
+        "BOQ Item No.": "30.",
+        "Description": "Providing and fixing aluminium sliding door bolts 300 x 16 mm anodised transparent or dyed to required colour or shade with nuts and screws etc. complete.",
+        "Original Quantity": 10.0,
+        "Original Unit": "Each",
+        "Schedule Item Code": "9.218.1",
+        "Material Category": "Aluminium",
+        "Discipline": "Architectural"
+    },
+    {
+        "BOQ Item No.": "31. i)",
+        "Description": "Providing and fixing aluminium tower bolts anodised transparent or dyed to required colour or shade with necessary screws etc. complete. i) 200 x 10 mm",
+        "Original Quantity": 10.0,
+        "Original Unit": "Each",
+        "Schedule Item Code": "9.219.3",
+        "Material Category": "Aluminium",
+        "Discipline": "Architectural"
+    },
+    {
+        "BOQ Item No.": "31. ii)",
+        "Description": "Providing and fixing aluminium tower bolts anodised transparent or dyed to required colour or shade with necessary screws etc. complete. ii) 100 x 10 mm",
+        "Original Quantity": 8.0,
+        "Original Unit": "Each",
+        "Schedule Item Code": "9.219.5",
+        "Material Category": "Aluminium",
+        "Discipline": "Architectural"
+    },
+    {
+        "BOQ Item No.": "32. i)",
+        "Description": "Providing and fixing aluminium handles anodised transparent or dyed to required colour or shade with necessary screws etc. complete. i) 100 mm",
+        "Original Quantity": 20.0,
+        "Original Unit": "Each",
+        "Schedule Item Code": "9.222.2",
+        "Material Category": "Aluminium",
+        "Discipline": "Architectural"
+    },
+    {
+        "BOQ Item No.": "32. ii)",
+        "Description": "Providing and fixing aluminium handles anodised transparent or dyed to required colour or shade with necessary screws etc. complete. ii) 75 mm",
+        "Original Quantity": 4.0,
+        "Original Unit": "Each",
+        "Schedule Item Code": "9.222.3",
+        "Material Category": "Aluminium",
+        "Discipline": "Architectural"
+    },
+    {
+        "BOQ Item No.": "33.",
+        "Description": "Providing and fixing aluminium hanging floor door stopper anodised transparent or dyed to required colour & shade with necessary screws etc. complete.",
+        "Original Quantity": 10.0,
+        "Original Unit": "Each",
+        "Schedule Item Code": "9.223",
+        "Material Category": "Aluminium",
+        "Discipline": "Architectural"
+    },
+    {
+        "BOQ Item No.": "34. i)",
+        "Description": "Providing and fixing steel glazed doors, windows and ventilators of standard rolled steel sections, joints mitred and welded with 15x3 mm lugs, 10 cm long, with steel lugs, embedded in cement concrete blocks 15x10x10 cm of 1:3:6 (1 cement : 3 coarse sand : 6 graded stone aggregate 20 mm nominal size) or with wooden plugs and screws or rawl plugs and screws or with fixing clips or with bolts and nuts as required, including providing and fixing of (Pin Head) 3mm thick glass panes with glazing clips and special metal sash putty of approved make complete including applying a priming coat of approved steel primer; excluding the cost of metal beading and other fitting except necessary hinges or pivots as required. i) Windows - side hung",
+        "Original Quantity": 11.3,
+        "Original Unit": "Sq.m",
+        "Schedule Item Code": "N.S.I.",
+        "Material Category": "Steel",
+        "Discipline": "Architectural"
+    },
+    {
+        "BOQ Item No.": "34. ii)",
+        "Description": "Providing and fixing steel glazed doors, windows and ventilators of standard rolled steel sections, joints mitred and welded with 15x3 mm lugs, 10 cm long, with steel lugs, embedded in cement concrete blocks 15x10x10 cm of 1:3:6 (1 cement : 3 coarse sand : 6 graded stone aggregate 20 mm nominal size) or with wooden plugs and screws or rawl plugs and screws or with fixing clips or with bolts and nuts as required, including providing and fixing of (Pin Head) 3mm thick glass panes with glazing clips and special metal sash putty of approved make complete including applying a priming coat of approved steel primer; excluding the cost of metal beading and other fitting except necessary hinges or pivots as required. ii) Ventilators - centre hung",
+        "Original Quantity": 1.0,
+        "Original Unit": "Sq.m",
+        "Schedule Item Code": "N.S.I.",
+        "Material Category": "Steel",
+        "Discipline": "Architectural"
+    },
+    {
+        "BOQ Item No.": "35.",
+        "Description": "Providing and fixing oxidised mild steel casement window fastners of minimum weight 200 grams to side hung steel windows with necessary welding and machine screws etc. complete.",
+        "Original Quantity": 21.0,
+        "Original Unit": "Each",
+        "Schedule Item Code": "N.S.I.",
+        "Material Category": "Steel",
+        "Discipline": "Architectural"
+    },
+    {
+        "BOQ Item No.": "36.",
+        "Description": "Providing and fixing aluminium casement stays anodised transparent or dyed to required colour and shade with with necessary welding and machine screws etc. complete.",
+        "Original Quantity": 21.0,
+        "Original Unit": "Each",
+        "Schedule Item Code": "9.224",
+        "Material Category": "Aluminium",
+        "Discipline": "Architectural"
+    },
+    {
+        "BOQ Item No.": "37.",
+        "Description": "Providing and welding 20x4 mm M S Guard Flats 10cm c/c in steel windows of standard rolled steel section including a coat of steel peimer as per drawing and spefication complete in all respect.",
+        "Original Quantity": 66.0,
+        "Original Unit": "Kg.",
+        "Schedule Item Code": "N.S.I.",
+        "Material Category": "Steel",
+        "Discipline": "Architectural"
+    },
+    {
+        "BOQ Item No.": "38.",
+        "Description": "Providing and fixing T - Iron frames for doors, windows and ventilators of mild steel Tee - sections, joints mitred and welded with 15x3 mm lugs 10 cm long embedded in cement concrete blocks 15x10x10 cm of 1:3:6 (1 cement : 3 coarse sand : 6 graded stone aggregate 20 mm nominal size) or with wooden plugs and screws or rawl plugs and screws or with fixing clips or with bolts and nuts as required, including fixing of necessary butt hinges and screws and applying a priming coat of approved steel primer.",
+        "Original Quantity": 187.0,
+        "Original Unit": "Kg.",
+        "Schedule Item Code": "10.14",
+        "Material Category": "Steel",
+        "Discipline": "Architectural"
+    },
+    {
+        "BOQ Item No.": "39.",
+        "Description": "Providing and fixing MS fan clamp type I of 16 mm dia MS bar bent to shape with hooked ends in RCC slabs during laying including painting the exposed portion of loop, all as per standard design complete.",
+        "Original Quantity": 5.0,
+        "Original Unit": "Each",
+        "Schedule Item Code": "10.19",
+        "Material Category": "Steel",
+        "Discipline": "Structural"
+    },
+    {
+        "BOQ Item No.": "40.",
+        "Description": "40 mm thick cement concrete flooring 1:2:4 (1 cement : 2 coarse sand : 4 graded stone aggregate 20.0 mm nominal size) finished with a floating coat of neat cement including cement slurry, rounding off edges and strips etc. but excluding the cost of nosing of steps etc. complete.",
+        "Original Quantity": 68.0,
+        "Original Unit": "Sq.m",
+        "Schedule Item Code": "11.4.2",
+        "Material Category": "Concrete",
+        "Discipline": "Architectural"
+    },
+    {
+        "BOQ Item No.": "41.",
+        "Description": "18 mm thick cement plaster skirting (upto 30 cm height) with cement mortar 1:3 (1 cement : 3 coarse sand) finished with a floating coat of neat cement including rounding of junctions with floors.",
+        "Original Quantity": 11.0,
+        "Original Unit": "Sq.m",
+        "Schedule Item Code": "11.10.1",
+        "Material Category": "Concrete",
+        "Discipline": "Architectural"
+    },
+    {
+        "BOQ Item No.": "42.",
+        "Description": "40 mm thick marble chips flooring, rubbed and polished to granolithic finish, under layer 31 mm thick cement concrete 1:2:4 (1 cement : 2 coarse sand : 4 graded stone aggregate 12.5 mm nominal size) and top layer 9 mm thick with white black, chocolate, grey yellow or Baroda green marble chips of sizes from 4 mm to 7 mm nominal size laid in cement marble powder mix 3:1 (3 cement : 1 marble powder) by weight in proportion of 4:7 (4 cement marble powder mix : 7 marble chips) by volume including cement slurry etc., complete using dark shade pigment with ordinary cement.",
+        "Original Quantity": 9.0,
+        "Original Unit": "Sq.m",
+        "Schedule Item Code": "11.16.1",
+        "Material Category": "Concrete",
+        "Discipline": "Architectural"
+    },
+    {
+        "BOQ Item No.": "43.",
+        "Description": "Add or deduct for providing and fixing glass strips in joints of terrazzo/cement concrete floors- 40 mm wide and 6 mm thick.",
+        "Original Quantity": 18.0,
+        "Original Unit": "Mtr.",
+        "Schedule Item Code": "11.20.2",
+        "Material Category": "Glass",
+        "Discipline": "Architectural"
+    },
+    {
+        "BOQ Item No.": "44.",
+        "Description": "Painting top of roofs with bitumen of approved quality at 17 Kg. per 10 square metre impregnated with a coat of coarse sand at 3/2 60 dm per 10 m including cleaning the slab surface with brushes and finally with a piece of cloth lightly soaked in kerosene oil complete with residual type petroleum bitumen of penetration 80/100.",
+        "Original Quantity": 65.0,
+        "Original Unit": "sq.m",
+        "Schedule Item Code": "12.29.1",
+        "Material Category": "Bitumen",
+        "Discipline": "Civil & Sitework"
+    },
+    {
+        "BOQ Item No.": "45.",
+        "Description": "Lime concrete terracing on roofs, average thickness 10 cm laid to fall with 25 mm nominal size brick aggregate and 50% lime mortar 1:2 (1 lime putty : 2 surkhi) rammed and finished with gur and belgiri treatment complete and covered with flat FPS brick tiles of class designation 100 grouted with cement mortar 1:3 (1 cement : 3 fine sand) mixed with 5% crude oil by wt. of cement, over 12 mm layer of cement mortar 1:3 (1 cement : 3 fine sand) and finished neat.",
+        "Original Quantity": 65.0,
+        "Original Unit": "Sq.m",
+        "Schedule Item Code": "12.35.2",
+        "Material Category": "Concrete",
+        "Discipline": "Civil & Sitework"
+    },
+    {
+        "BOQ Item No.": "46.",
+        "Description": "Providing and laying 25 mm thick burnt clay tiles 250x250x25 mm of approved quality over roofs with 1 cm side joints grouted with CM 1:3 (1 cement : 3 fine sand) over 15 mm thick bed of cement mortar 1:3 (1 cement : 3 fine sand) and finished neat.",
+        "Original Quantity": 32.0,
+        "Original Unit": "Sq.m",
+        "Schedule Item Code": "N.S.I.",
+        "Material Category": "Tiles",
+        "Discipline": "Architectural"
+    },
+    {
+        "BOQ Item No.": "47.",
+        "Description": "Providing gola 15x15 cm in size in cement concrete mix 1:3:6 (1 cement : 3 coarse sand : 6 graded stone aggregate 20 mm nominal size) covered with brick tiles in CM 1:3 (1 cement : 3 coarse sand) as per drawing and specifications complete in all respects.",
+        "Original Quantity": 46.0,
+        "Original Unit": "Mtr.",
+        "Schedule Item Code": "N.S.I.",
+        "Material Category": "Concrete",
+        "Discipline": "Civil & Sitework"
+    },
+    {
+        "BOQ Item No.": "48.",
+        "Description": "Making khurras 45 x 45 cm with average minimum thickness of 5 cm cement concrete 1:2:4 (1 cement : 2 coarse sand : 4 graded stone aggregate 20 mm nominal size) over PVC sheet 1m x 1m x 400 micron, finished with 12 cement plaster 1:3 (1 cement : 3 coarse sand) and a coat of neat cement rounding the edges and making and finishing the outlet complete.",
+        "Original Quantity": 3.0,
+        "Original Unit": "Each",
+        "Schedule Item Code": "12.39",
+        "Material Category": "Concrete",
+        "Discipline": "Civil & Sitework"
+    },
+    {
+        "BOQ Item No.": "49.",
+        "Description": "Providing and fixing on wallface 100 mm diameter CI rain water pipe including filling the joints with spun yarn soaked in neat cement slurry and cement mortar 1:2 (1 cement : 2 fine sand)",
+        "Original Quantity": 10.0,
+        "Original Unit": "Mtr.",
+        "Schedule Item Code": "12.69.2",
+        "Material Category": "Piping",
+        "Discipline": "Civil & Sitework"
+    },
+    {
+        "BOQ Item No.": "50.",
+        "Description": "Providing and fixing 100 mm dia MS holderbat clamps of approved design to CI or SCI rain water pipes embedded in and including cement concrete blocks 10 x 10 x 10 cm of 1:2:4 (1 cement : 2 coarse sand : 4 graded stone aggregate 20 mm nominal size) and cost of cutting holes and making good the walls etc.",
+        "Original Quantity": 9.0,
+        "Original Unit": "Each",
+        "Schedule Item Code": "12.71.2",
+        "Material Category": "Steel",
+        "Discipline": "Civil & Sitework"
+    },
+    {
+        "BOQ Item No.": "51.",
+        "Description": "Providing and fixing on wall face CI accessories for rain water pipes including filling the joints with spun yarn soaked in neat cement slurry and cement mortar 1:2 (1 cement : 2 fine sand)\ni) CI plain head 100 mm dia\nii) CI plain shoe - 100 mm dia\niii) CI plain bend - 100 mm dia",
+        "Original Quantity": null,
+        "Original Unit": "Each",
+        "Schedule Item Code": "12.72.2.2 / 12.72.3.2 / 12.72.1.2",
+        "Material Category": "Cast Iron",
+        "Discipline": "Civil & Sitework"
+    },
+    {
+        "BOQ Item No.": "52.",
+        "Description": "12 mm cement plaster of mix 1:6 (1 cement : 6 fine sand)",
+        "Original Quantity": 220.0,
+        "Original Unit": "Sq.m",
+        "Schedule Item Code": "13.8.4",
+        "Material Category": "Plaster",
+        "Discipline": "Architectural"
+    },
+    {
+        "BOQ Item No.": "53.",
+        "Description": "15 mm cement plaster on the rough side of single or half brick wall of mix 1:6 (1 cement : 6 fine sand)",
+        "Original Quantity": 220.0,
+        "Original Unit": "Sq.m",
+        "Schedule Item Code": "13.9.4",
+        "Material Category": "Plaster",
+        "Discipline": "Architectural"
+    },
+    {
+        "BOQ Item No.": "54.",
+        "Description": "6 mm cement plaster of mix 1:3 (1 cement : 3 fine sand) finished with a floating coat of neat cement and thick coat of lime wash on top of walls when dry for bearing of RCC slabs and beams.",
+        "Original Quantity": 19.0,
+        "Original Unit": "Sq.m",
+        "Schedule Item Code": "13.25",
+        "Material Category": "Plaster",
+        "Discipline": "Architectural"
+    },
+    {
+        "BOQ Item No.": "55.",
+        "Description": "18 mm plastering with terrazzo finish for dado rubbed and polished complete, under layer 12 mm thick cement plaster 1:3 (1 cement : 3 coarse sand) and top layer 6 mm thick white, black, chocolate, grey, yellow or Baroda green marble chips of 3 mm and down size laid in cement marble powder mix 3:1 (3 cement : 1 marble powder) by weight in proportion of 4:7 (4 cement marble powder mix : 7 marble chips) by volume.",
+        "Original Quantity": 20.0,
+        "Original Unit": "Sq.m",
+        "Schedule Item Code": "13.41",
+        "Material Category": "Terrazzo",
+        "Discipline": "Architectural"
+    },
+    {
+        "BOQ Item No.": "56.",
+        "Description": "Finishing and plastering the exposed surface of RCC with cement mortar 1:3",
+        "Original Quantity": 155.0,
+        "Original Unit": "Sq.m",
+        "Schedule Item Code": "5.31/13.24.1",
+        "Material Category": "Plaster",
+        "Discipline": "Architectural"
+    },
+    {
+        "BOQ Item No.": "57.",
+        "Description": "White washing with lime to give an even shade on new work (three or more coats).",
+        "Original Quantity": 285.0,
+        "Original Unit": "Sq.m",
+        "Schedule Item Code": "13.70.1",
+        "Material Category": "Paint",
+        "Discipline": "Architectural"
+    },
+    {
+        "BOQ Item No.": "58.",
+        "Description": "Colour washing such as green, blue or buff to give an even shade on new work (two or more coats) with a base coat of white washing with lime.",
+        "Original Quantity": 285.0,
+        "Original Unit": "Sq.m",
+        "Schedule Item Code": "13.73.1",
+        "Material Category": "Paint",
+        "Discipline": "Architectural"
+    },
+    {
+        "BOQ Item No.": "59.",
+        "Description": "Applying priming coat with ready mixed pink or gray primer of approved brand and manufacture - on wood work (hard and soft wood)",
+        "Original Quantity": 47.0,
+        "Original Unit": "Sq.m",
+        "Schedule Item Code": "13.81.1",
+        "Material Category": "Paint",
+        "Discipline": "Architectural"
+    },
+    {
+        "BOQ Item No.": "60.",
+        "Description": "Applying priming coat with readymixed zinc chromate yellow primer of approved brand and manufacture on steelwork (second coat)",
+        "Original Quantity": 30.0,
+        "Original Unit": "Sq.m",
+        "Schedule Item Code": "13.81.4",
+        "Material Category": "Paint",
+        "Discipline": "Architectural"
+    },
+    {
+        "BOQ Item No.": "61.",
+        "Description": "Painting (two or more coats) on rain water, soil, waste and vent pipes and fittings with black anticorrosive bitumastic paint of approved brand and manufacture over and including a priming coat of ready mixed zinc chromate yellow primer on new work on 100 mm diameter pipes.",
+        "Original Quantity": 10.0,
+        "Original Unit": "Mtr.",
+        "Schedule Item Code": "13.84.3",
+        "Material Category": "Paint",
+        "Discipline": "Architectural"
+    },
+    {
+        "BOQ Item No.": "62.",
+        "Description": "Painting with synthetic enamel paint of approved brand and manufacture to give an even shade in two or more coats on new work in black or chocolate shade over an under coat of suitable shade with ordinary paint of approved brand and manufacture.",
+        "Original Quantity": 77.0,
+        "Original Unit": "Sq.m",
+        "Schedule Item Code": "13.94.1",
+        "Material Category": "Paint",
+        "Discipline": "Architectural"
+    },
+    {
+        "BOQ Item No.": "63.",
+        "Description": "French spirit polishing two or more coats on new works including a coat of wood filler.",
+        "Original Quantity": 13.0,
+        "Original Unit": "Sq.m",
+        "Schedule Item Code": "13.101.1",
+        "Material Category": "Paint",
+        "Discipline": "Architectural"
+    },
+    {
+        "BOQ Item No.": "64.",
+        "Description": "Making plinth protection 50 mm thick of cement concrete 1:3:6 (1 cement : 3 coarse sand : 6 graded stone aggregate 20 mm nominal size) over 75 mm bed of dry brick ballast 40 mm nominal size well rammed and consolidated and grouted with fine sand, including finishing the top smooth.",
+        "Original Quantity": 34.6,
+        "Original Unit": "Sq.m",
+        "Schedule Item Code": "16.1",
+        "Material Category": "Concrete",
+        "Discipline": "Civil & Sitework"
+    }
+]
