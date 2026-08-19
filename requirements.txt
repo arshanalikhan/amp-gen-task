@@ -1,0 +1,4 @@
+google-genai
+pandas
+openpyxl
+matplotlib
