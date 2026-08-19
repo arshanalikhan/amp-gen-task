@@ -6,7 +6,12 @@
         "Original Unit": "Cu.m",
         "Schedule Item Code": "2.8",
         "Material Category": "Earthwork",
-        "Discipline": "Civil & Sitework"
+        "Discipline": "Civil & Sitework",
+        "Floor / Section": "Substructure / Earthwork",
+        "Material / Product": "Excavated Soil",
+        "Grade": null,
+        "Mix Ratio": null,
+        "Classification (Matched)": "Earthwork > Excavation > Foundation Trenches"
     },
     {
         "BOQ Item No.": "2.",
@@ -15,7 +20,12 @@
         "Original Unit": "Cu.m",
         "Schedule Item Code": "2.26",
         "Material Category": "Earthwork",
-        "Discipline": "Civil & Sitework"
+        "Discipline": "Civil & Sitework",
+        "Floor / Section": "Substructure / Earthwork",
+        "Material / Product": "Excavated Earth",
+        "Grade": null,
+        "Mix Ratio": null,
+        "Classification (Matched)": "Earthwork > Filling > Excavated Earth"
     },
     {
         "BOQ Item No.": "3.",
@@ -24,7 +34,12 @@
         "Original Unit": "Cu.m",
         "Schedule Item Code": "2.28",
         "Material Category": "Earthwork",
-        "Discipline": "Civil & Sitework"
+        "Discipline": "Civil & Sitework",
+        "Floor / Section": "Substructure / Earthwork",
+        "Material / Product": "Fine Sand",
+        "Grade": null,
+        "Mix Ratio": null,
+        "Classification (Matched)": "Earthwork > Filling > Sand"
     },
     {
         "BOQ Item No.": "4.",
@@ -33,7 +48,12 @@
         "Original Unit": "100 Sq.m",
         "Schedule Item Code": "2.29.1",
         "Material Category": "Earthwork",
-        "Discipline": "Civil & Sitework"
+        "Discipline": "Civil & Sitework",
+        "Floor / Section": "Site Preparation / Earthwork",
+        "Material / Product": "Ground Surface",
+        "Grade": null,
+        "Mix Ratio": null,
+        "Classification (Matched)": "Earthwork > Surface Dressing > Loose Soil"
     },
     {
         "BOQ Item No.": "5.",
@@ -42,7 +62,12 @@
         "Original Unit": "Sq.m",
         "Schedule Item Code": "2.35.2",
         "Material Category": "Chemicals",
-        "Discipline": "Civil & Sitework"
+        "Discipline": "Civil & Sitework",
+        "Floor / Section": "Substructure / Anti-termite Treatment",
+        "Material / Product": "Aldrin Emulsifiable Concentrate",
+        "Grade": null,
+        "Mix Ratio": "0.5%",
+        "Classification (Matched)": "Special Treatments > Anti-Termite > Pre-construction"
     },
     {
         "BOQ Item No.": "6.",
@@ -51,7 +76,12 @@
         "Original Unit": "Cu.m",
         "Schedule Item Code": "4.5.10",
         "Material Category": "Concrete",
-        "Discipline": "Structural"
+        "Discipline": "Structural",
+        "Floor / Section": "Substructure / Concrete Work",
+        "Material / Product": "Plain Cement Concrete",
+        "Grade": null,
+        "Mix Ratio": "1:5:10",
+        "Classification (Matched)": "Concrete > Plain Cement Concrete > Footings & Bases > 1:5:10"
     },
     {
         "BOQ Item No.": "7.",
@@ -60,7 +90,12 @@
         "Original Unit": "Cu.m",
         "Schedule Item Code": "4.6.11",
         "Material Category": "Concrete",
-        "Discipline": "Structural"
+        "Discipline": "Structural",
+        "Floor / Section": "Concrete Work",
+        "Material / Product": "Plain Cement Concrete",
+        "Grade": null,
+        "Mix Ratio": "1:5:10",
+        "Classification (Matched)": "Concrete > Plain Cement Concrete > Walls > 1:5:10"
     },
     {
         "BOQ Item No.": "8.",
@@ -69,7 +104,12 @@
         "Original Unit": "Cu.m",
         "Schedule Item Code": "4.11.1",
         "Material Category": "Concrete",
-        "Discipline": "Structural"
+        "Discipline": "Civil & Sitework",
+        "Floor / Section": "Concrete Work",
+        "Material / Product": "Plain Cement Concrete",
+        "Grade": null,
+        "Mix Ratio": "1:2:4",
+        "Classification (Matched)": "Concrete > Nominal-mix > 1:2:4"
     },
     {
         "BOQ Item No.": "9.",
@@ -78,7 +118,12 @@
         "Original Unit": "Sq.m",
         "Schedule Item Code": "4.24",
         "Material Category": "Concrete",
-        "Discipline": "Civil & Sitework"
+        "Discipline": "Civil & Sitework",
+        "Floor / Section": "Concrete Work",
+        "Material / Product": "Damp-proof Course Concrete",
+        "Grade": null,
+        "Mix Ratio": "1:2:4",
+        "Classification (Matched)": "Concrete > Damp-proof Course > 1:2:4"
     },
     {
         "BOQ Item No.": "10.",
@@ -87,7 +132,12 @@
         "Original Unit": "Sq.m",
         "Schedule Item Code": "4.27",
         "Material Category": "Bitumen",
-        "Discipline": "Civil & Sitework"
+        "Discipline": "Civil & Sitework",
+        "Floor / Section": "Concrete Work",
+        "Material / Product": "Petroleum Bitumen",
+        "Grade": "80/100",
+        "Mix Ratio": null,
+        "Classification (Matched)": "Waterproofing > Bitumen Coat"
     },
     {
         "BOQ Item No.": "11.",
@@ -96,7 +146,12 @@
         "Original Unit": "Cu.m",
         "Schedule Item Code": "5.3",
         "Material Category": "Concrete",
-        "Discipline": "Structural"
+        "Discipline": "Structural",
+        "Floor / Section": "Reinforced Cement Concrete Work",
+        "Material / Product": "Reinforced Cement Concrete",
+        "Grade": null,
+        "Mix Ratio": "1:2:4",
+        "Classification (Matched)": "Concrete > Reinforced Concrete > Suspended Floors"
     },
     {
         "BOQ Item No.": "12.",
@@ -105,7 +160,12 @@
         "Original Unit": "Cu.m",
         "Schedule Item Code": "5.4",
         "Material Category": "Concrete",
-        "Discipline": "Architectural"
+        "Discipline": "Structural",
+        "Floor / Section": "Reinforced Cement Concrete Work",
+        "Material / Product": "Reinforced Cement Concrete",
+        "Grade": null,
+        "Mix Ratio": "1:2:4",
+        "Classification (Matched)": "Concrete > Reinforced Concrete > Shelves"
     },
     {
         "BOQ Item No.": "13.",
@@ -114,7 +174,12 @@
         "Original Unit": "Cu.m",
         "Schedule Item Code": "5.5",
         "Material Category": "Concrete",
-        "Discipline": "Structural"
+        "Discipline": "Structural",
+        "Floor / Section": "Reinforced Cement Concrete Work",
+        "Material / Product": "Reinforced Cement Concrete",
+        "Grade": null,
+        "Mix Ratio": "1:2:4",
+        "Classification (Matched)": "Concrete > Reinforced Concrete > Chajjas & Gutters"
     },
     {
         "BOQ Item No.": "14.",
@@ -123,7 +188,12 @@
         "Original Unit": "Cu.m",
         "Schedule Item Code": "5.6.3",
         "Material Category": "Concrete",
-        "Discipline": "Structural"
+        "Discipline": "Structural",
+        "Floor / Section": "Reinforced Cement Concrete Work",
+        "Material / Product": "Reinforced Cement Concrete",
+        "Grade": null,
+        "Mix Ratio": "1:2:4",
+        "Classification (Matched)": "Concrete > Reinforced Concrete > Beams & Lintels"
     },
     {
         "BOQ Item No.": "15.",
@@ -132,16 +202,26 @@
         "Original Unit": "Cu.m",
         "Schedule Item Code": "5.7.3",
         "Material Category": "Concrete",
-        "Discipline": "Structural"
+        "Discipline": "Structural",
+        "Floor / Section": "Concrete Work",
+        "Material / Product": "Reinforced Cement Concrete",
+        "Grade": null,
+        "Mix Ratio": "1:2:4",
+        "Classification (Matched)": "Concrete > Reinforced Concrete > Columns & Pillars"
     },
     {
         "BOQ Item No.": "16.",
-        "Description": "Centring and shuttering including strutting, proping etc. and removal of form work for :\ni) Suspended floors, roofs, landings balconies and chajjas.\nii) Shelves\niii) Lintels, beams, plinth beams, girders bressumers and cantilever.\niv) Columns, pillars, posts and struts.\nv) Vertical and horizontal fins individually or forming box louvers band and facias.",
+        "Description": "Centring and shuttering including strutting, proping etc. and removal of form work for :\ni) Suspended floors,roofs,landings balconies and chajjas.\nii) Shelves\niii) Lintels, beams, plinth beams, girders bressumers and cantilever.\niv) Columns, pillars, posts and struts.\nv) Vertical and horizontal fins individually or forming box louvers hand and facias.",
         "Original Quantity": null,
-        "Original Unit": null,
+        "Original Unit": "Sq.m",
         "Schedule Item Code": "5.14",
-        "Material Category": "Wood",
-        "Discipline": "Structural"
+        "Material Category": "Formwork",
+        "Discipline": "Structural",
+        "Floor / Section": "Formwork",
+        "Material / Product": "Centering and Shuttering",
+        "Grade": null,
+        "Mix Ratio": null,
+        "Classification (Matched)": "Formwork > Centering & Shuttering"
     },
     {
         "BOQ Item No.": "17.",
@@ -150,169 +230,264 @@
         "Original Unit": "Kg.",
         "Schedule Item Code": "5.29",
         "Material Category": "Steel",
-        "Discipline": "Structural"
+        "Discipline": "Structural",
+        "Floor / Section": "Reinforcement",
+        "Material / Product": "Steel Reinforcement",
+        "Grade": null,
+        "Mix Ratio": null,
+        "Classification (Matched)": "Steel > Reinforcement Bars"
     },
     {
         "BOQ Item No.": "18.",
-        "Description": "Providing and laying upto floor two level RCC in string courses, bands, copings, bed plates, anchor blocks, plain window sills and the like excluding the cost of centering, shuttering, finishing and reinforcement with 1:2:4 (1 cement : 2 coarse sand : 4 graded stone aggregate 20 mm nominal size).",
+        "Description": "Providing and laying upto floor two level RCC in string courses, bands, copings, bed plates, anchor blocks, plain window sills and the like excluding the cost of centering, shuttering, finishing and reinforcement with 1:2:4 (1 cement : 2, coarse sand : 4 graded stone aggregate 20 mm nominal size).",
         "Original Quantity": 0.8,
         "Original Unit": "Cu.m",
         "Schedule Item Code": "5.16",
         "Material Category": "Concrete",
-        "Discipline": "Structural"
+        "Discipline": "Structural",
+        "Floor / Section": "Concrete Work",
+        "Material / Product": "Reinforced Cement Concrete",
+        "Grade": null,
+        "Mix Ratio": "1:2:4",
+        "Classification (Matched)": "Concrete > Reinforced Concrete > Precast / Miscellaneous"
     },
     {
         "BOQ Item No.": "19.",
-        "Description": "Brick work with bricks of class designation____ in foundation and plinth in cement mortar 1:6 (1 cement : 6 coarse sand).",
+        "Description": "Brick work with bricks of class designation___ in foundation and plinth in cement mortar 1:6 (1 cement : 6 coarse sand).",
         "Original Quantity": 17.0,
         "Original Unit": "Cu.m",
-        "Schedule Item Code": "6.1.14/6.5.1\n6.5.2",
+        "Schedule Item Code": "6.1.14/6.5.1 6.5.2",
         "Material Category": "Brick",
-        "Discipline": "Civil & Sitework"
+        "Discipline": "Civil & Sitework",
+        "Floor / Section": "Brick Work",
+        "Material / Product": "Clay Bricks",
+        "Grade": null,
+        "Mix Ratio": "1:6",
+        "Classification (Matched)": "Masonry > Brickwork > Foundation & Plinth"
     },
     {
         "BOQ Item No.": "20.",
-        "Description": "Brick work with bricks of class designation____ in super structure above plinth upto floor two level in cement mortar 1:6 (1 cement : 6 coarse sand).",
+        "Description": "Brick work with bricks of class designation___ in super structure above plinth upto floor two level in cement mortar 1:6 (1 cement : 6 coarse sand).",
         "Original Quantity": 40.3,
         "Original Unit": "Cu.m",
-        "Schedule Item Code": "6.1.14/6.3\n6.5.1/6.5.2",
+        "Schedule Item Code": "6.1.14/6.3 6.5.1/6.5.2",
         "Material Category": "Brick",
-        "Discipline": "Civil & Sitework"
+        "Discipline": "Civil & Sitework",
+        "Floor / Section": "Brick Work",
+        "Material / Product": "Clay Bricks",
+        "Grade": null,
+        "Mix Ratio": "1:6",
+        "Classification (Matched)": "Masonry > Brickwork > Superstructure"
     },
     {
         "BOQ Item No.": "21.",
-        "Description": "Brick work 7 cm thick with bricks of class designation ______ in super structure upto floor two level in cement mortar 1:3 (1 cement : 3 coarse sand).",
+        "Description": "Brick work 7 cm thick with bricks of class designation ------ in super structure upto floor two level in cement mortar 1:3 (1 cement : 3 coarse sand).",
         "Original Quantity": 0.9,
         "Original Unit": "Sq.m.",
-        "Schedule Item Code": "6.13/6.21/\n6.5.1/6.5.2",
+        "Schedule Item Code": "6.13/6.21/ 6.5.1/6.5.2",
         "Material Category": "Brick",
-        "Discipline": "Civil & Sitework"
+        "Discipline": "Civil & Sitework",
+        "Floor / Section": "Brick Work",
+        "Material / Product": "Clay Bricks",
+        "Grade": null,
+        "Mix Ratio": "1:3",
+        "Classification (Matched)": "Masonry > Brickwork > Partition Wall"
     },
     {
         "BOQ Item No.": "22.",
-        "Description": "Half brick masonry with bricks of class designation _____ in foundation & plinth in cement mortar 1:4 (1 cement : 4 coarse sand)",
+        "Description": "Half brick masonry with bricks of class designation ______ in foundation & plinth in cement mortar 1:4 (1 cement : 4 coarse sand)",
         "Original Quantity": 4.8,
         "Original Unit": "Sq.m",
-        "Schedule Item Code": "6.18.4/6.21 6.5.1/6.5.2",
+        "Schedule Item Code": "6.18.4/6.21",
         "Material Category": "Brick",
-        "Discipline": "Civil & Sitework"
+        "Discipline": "Civil & Sitework",
+        "Floor / Section": "Foundation & Plinth",
+        "Material / Product": "Half Brick Masonry",
+        "Grade": null,
+        "Mix Ratio": "1:4",
+        "Classification (Matched)": "Masonry > Brickwork > Foundation & Plinth"
     },
     {
         "BOQ Item No.": "23.",
-        "Description": "Half brick masonry with bricks of class designation _____ in super structure upto floor two level in cement mortar 1:4 (1 cement : 4 coarse sand).",
+        "Description": "Half brick masonry with bricks of class designation ______ in super structure upto floor two level in cement mortar 1:4 (1 cement : 4 coarse sand).",
         "Original Quantity": 18.0,
         "Original Unit": "Sq.m",
-        "Schedule Item Code": "6.18.4/6.19.1 6.20/6.21.1/6.21.2",
+        "Schedule Item Code": "6.18.4/6.19.1",
         "Material Category": "Brick",
-        "Discipline": "Civil & Sitework"
+        "Discipline": "Architectural",
+        "Floor / Section": "Superstructure",
+        "Material / Product": "Half Brick Masonry",
+        "Grade": null,
+        "Mix Ratio": "1:4",
+        "Classification (Matched)": "Masonry > Brickwork > Superstructure"
     },
     {
         "BOQ Item No.": "24.",
-        "Description": "Providing _____________ wood work in frames of doors, windows, clerestory windows and other frames, wrought framed and fixed in position.",
+        "Description": "Providing ______ wood work in frames of doors, windows, clerestory windows and other frames, wrought framed and fixed in position.",
         "Original Quantity": 3.5,
         "Original Unit": "10 Cubic decimetre",
         "Schedule Item Code": null,
         "Material Category": "Wood",
-        "Discipline": "Architectural"
+        "Discipline": "Architectural",
+        "Floor / Section": "Woodwork",
+        "Material / Product": "Wooden Frames",
+        "Grade": null,
+        "Mix Ratio": null,
+        "Classification (Matched)": "Woodwork > Door & Window Frames"
     },
     {
         "BOQ Item No.": "25.",
-        "Description": "Providing and fixing 35 mm thick battended and framed door shutters of ______________ wood including bright finished or/and black enamelled MS butt hinges with necessary screws.",
+        "Description": "Providing and fixing 35 mm thick battended and framed door shutters of ______ wood including bright finished or/and black enamelled MS butt hinges with necessary screws.",
         "Original Quantity": 18.0,
         "Original Unit": "Sq.m",
         "Schedule Item Code": "9.26.4",
         "Material Category": "Wood",
-        "Discipline": "Architectural"
+        "Discipline": "Architectural",
+        "Floor / Section": "Woodwork",
+        "Material / Product": "Door Shutters",
+        "Grade": null,
+        "Mix Ratio": null,
+        "Classification (Matched)": "Woodwork > Door Shutters > Battened & Framed"
     },
     {
         "BOQ Item No.": "26.",
         "Description": "Providing and fixing 25 mm thick flush door (for cupboard) shutters core of block board construction with frame of Ist class hard wood and well matched Ist class teak ply veneering with vertical grains or cross bands and face veneer on one face and commercial ply veneering with vertical grains or cross bands and face veneer on other face of shutters, including nickel plated bright finished MS piano hinges with necessary screws.",
         "Original Quantity": 4.7,
         "Original Unit": "Sq.m",
-        "Schedule Item Code": "9.51",
+        "Schedule Item Code": null,
         "Material Category": "Wood",
-        "Discipline": "Architectural"
+        "Discipline": "Architectural",
+        "Floor / Section": "Woodwork",
+        "Material / Product": "Flush Door Shutters",
+        "Grade": null,
+        "Mix Ratio": null,
+        "Classification (Matched)": "Woodwork > Door Shutters > Flush Door"
     },
     {
         "BOQ Item No.": "27.",
         "Description": "Providing 50x50x50 mm 2nd class Teak wood plugs including cutting brick work and fixing in cement mortar 1:3 (1 cement : 3 fine sand) and making good the walls etc.",
         "Original Quantity": 20.0,
         "Original Unit": "each",
-        "Schedule Item Code": null,
+        "Schedule Item Code": "9.51",
         "Material Category": "Wood",
-        "Discipline": "Architectural"
+        "Discipline": "Architectural",
+        "Floor / Section": "Woodwork",
+        "Material / Product": "Teak Wood Plugs",
+        "Grade": null,
+        "Mix Ratio": "1:3",
+        "Classification (Matched)": "Woodwork > Miscellaneous > Teak Wood Plugs"
     },
     {
         "BOQ Item No.": "28.",
         "Description": "Providing and fixing M.S.oxidised fan light ventilator catch with necessary screws etc. complete.",
         "Original Quantity": 6.0,
         "Original Unit": "each",
-        "Schedule Item Code": "9.127.3",
+        "Schedule Item Code": null,
         "Material Category": "Steel",
-        "Discipline": "Architectural"
+        "Discipline": "Architectural",
+        "Floor / Section": "Hardware & Fittings",
+        "Material / Product": "Ventilator Catch",
+        "Grade": null,
+        "Mix Ratio": null,
+        "Classification (Matched)": "Hardware > MS Fittings > Ventilator Catch"
     },
     {
         "BOQ Item No.": "29.",
         "Description": "Providing and fixing 90 mm oxidised M.S. hasp and staple (safety type) with necessaary screws etc. complete.",
-        "Original Quantity": 2.0,
+        "Original Quantity": 2,
         "Original Unit": "each",
         "Schedule Item Code": "9.127.3",
         "Material Category": "Steel",
-        "Discipline": "Architectural"
+        "Discipline": "Architectural",
+        "Floor / Section": "Hardware & Fittings",
+        "Material / Product": "M.S. Hasp and Staple",
+        "Grade": null,
+        "Mix Ratio": null,
+        "Classification (Matched)": "Hardware > Door & Window Fittings > Hasp and Staple"
     },
     {
         "BOQ Item No.": "30.",
         "Description": "Providing and fixing aluminium sliding door bolts 300 x 16 mm anodised transparent or dyed to required colour or shade with nuts and screws etc. complete.",
-        "Original Quantity": 10.0,
+        "Original Quantity": 10,
         "Original Unit": "Each",
         "Schedule Item Code": "9.218.1",
         "Material Category": "Aluminium",
-        "Discipline": "Architectural"
+        "Discipline": "Architectural",
+        "Floor / Section": "Hardware & Fittings",
+        "Material / Product": "Aluminium Sliding Door Bolt",
+        "Grade": null,
+        "Mix Ratio": null,
+        "Classification (Matched)": "Hardware > Door & Window Fittings > Sliding Door Bolt"
     },
     {
         "BOQ Item No.": "31. i)",
         "Description": "Providing and fixing aluminium tower bolts anodised transparent or dyed to required colour or shade with necessary screws etc. complete. i) 200 x 10 mm",
-        "Original Quantity": 10.0,
+        "Original Quantity": 10,
         "Original Unit": "Each",
         "Schedule Item Code": "9.219.3",
         "Material Category": "Aluminium",
-        "Discipline": "Architectural"
+        "Discipline": "Architectural",
+        "Floor / Section": "Hardware & Fittings",
+        "Material / Product": "Aluminium Tower Bolt",
+        "Grade": null,
+        "Mix Ratio": null,
+        "Classification (Matched)": "Hardware > Door & Window Fittings > Tower Bolt"
     },
     {
         "BOQ Item No.": "31. ii)",
         "Description": "Providing and fixing aluminium tower bolts anodised transparent or dyed to required colour or shade with necessary screws etc. complete. ii) 100 x 10 mm",
-        "Original Quantity": 8.0,
+        "Original Quantity": 8,
         "Original Unit": "Each",
         "Schedule Item Code": "9.219.5",
         "Material Category": "Aluminium",
-        "Discipline": "Architectural"
+        "Discipline": "Architectural",
+        "Floor / Section": "Hardware & Fittings",
+        "Material / Product": "Aluminium Tower Bolt",
+        "Grade": null,
+        "Mix Ratio": null,
+        "Classification (Matched)": "Hardware > Door & Window Fittings > Tower Bolt"
     },
     {
         "BOQ Item No.": "32. i)",
         "Description": "Providing and fixing aluminium handles anodised transparent or dyed to required colour or shade with necessary screws etc. complete. i) 100 mm",
-        "Original Quantity": 20.0,
+        "Original Quantity": 20,
         "Original Unit": "Each",
         "Schedule Item Code": "9.222.2",
         "Material Category": "Aluminium",
-        "Discipline": "Architectural"
+        "Discipline": "Architectural",
+        "Floor / Section": "Hardware & Fittings",
+        "Material / Product": "Aluminium Handle",
+        "Grade": null,
+        "Mix Ratio": null,
+        "Classification (Matched)": "Hardware > Door & Window Fittings > Handles"
     },
     {
         "BOQ Item No.": "32. ii)",
         "Description": "Providing and fixing aluminium handles anodised transparent or dyed to required colour or shade with necessary screws etc. complete. ii) 75 mm",
-        "Original Quantity": 4.0,
+        "Original Quantity": 4,
         "Original Unit": "Each",
         "Schedule Item Code": "9.222.3",
         "Material Category": "Aluminium",
-        "Discipline": "Architectural"
+        "Discipline": "Architectural",
+        "Floor / Section": "Hardware & Fittings",
+        "Material / Product": "Aluminium Handle",
+        "Grade": null,
+        "Mix Ratio": null,
+        "Classification (Matched)": "Hardware > Door & Window Fittings > Handles"
     },
     {
         "BOQ Item No.": "33.",
         "Description": "Providing and fixing aluminium hanging floor door stopper anodised transparent or dyed to required colour & shade with necessary screws etc. complete.",
-        "Original Quantity": 10.0,
+        "Original Quantity": 10,
         "Original Unit": "Each",
         "Schedule Item Code": "9.223",
         "Material Category": "Aluminium",
-        "Discipline": "Architectural"
+        "Discipline": "Architectural",
+        "Floor / Section": "Hardware & Fittings",
+        "Material / Product": "Aluminium Door Stopper",
+        "Grade": null,
+        "Mix Ratio": null,
+        "Classification (Matched)": "Hardware > Door & Window Fittings > Door Stopper"
     },
     {
         "BOQ Item No.": "34. i)",
@@ -321,7 +496,12 @@
         "Original Unit": "Sq.m",
         "Schedule Item Code": "N.S.I.",
         "Material Category": "Steel",
-        "Discipline": "Architectural"
+        "Discipline": "Architectural",
+        "Floor / Section": "Doors & Windows",
+        "Material / Product": "Steel Glazed Window",
+        "Grade": null,
+        "Mix Ratio": "1:3:6",
+        "Classification (Matched)": "Doors & Windows > Steel Glazed Windows > Side Hung"
     },
     {
         "BOQ Item No.": "34. ii)",
@@ -330,34 +510,54 @@
         "Original Unit": "Sq.m",
         "Schedule Item Code": "N.S.I.",
         "Material Category": "Steel",
-        "Discipline": "Architectural"
+        "Discipline": "Architectural",
+        "Floor / Section": "Doors & Windows",
+        "Material / Product": "Steel Glazed Ventilator",
+        "Grade": null,
+        "Mix Ratio": "1:3:6",
+        "Classification (Matched)": "Doors & Windows > Steel Glazed Ventilators > Centre Hung"
     },
     {
         "BOQ Item No.": "35.",
         "Description": "Providing and fixing oxidised mild steel casement window fastners of minimum weight 200 grams to side hung steel windows with necessary welding and machine screws etc. complete.",
-        "Original Quantity": 21.0,
+        "Original Quantity": 21,
         "Original Unit": "Each",
         "Schedule Item Code": "N.S.I.",
         "Material Category": "Steel",
-        "Discipline": "Architectural"
+        "Discipline": "Architectural",
+        "Floor / Section": "Hardware & Fittings",
+        "Material / Product": "Mild Steel Casement Window Fastener",
+        "Grade": null,
+        "Mix Ratio": null,
+        "Classification (Matched)": "Hardware > Window Fittings > Casement Window Fastener"
     },
     {
         "BOQ Item No.": "36.",
-        "Description": "Providing and fixing aluminium casement stays anodised transparent or dyed to required colour and shade with with necessary welding and machine screws etc. complete.",
+        "Description": "Providing and fixing aluminium casement stays anodised transparent or dyed to requird colour and shade with with necessary welding and machine screws etc. complete.",
         "Original Quantity": 21.0,
         "Original Unit": "Each",
         "Schedule Item Code": "9.224",
         "Material Category": "Aluminium",
-        "Discipline": "Architectural"
+        "Discipline": "Architectural",
+        "Floor / Section": "Doors & Windows",
+        "Material / Product": "Aluminium Casement Stay",
+        "Grade": null,
+        "Mix Ratio": null,
+        "Classification (Matched)": "Finishes > Hardware Fittings > Aluminium Stays"
     },
     {
         "BOQ Item No.": "37.",
-        "Description": "Providing and welding 20x4 mm M S Guard Flats 10cm c/c in steel windows of standard rolled steel section including a coat of steel peimer as per drawing and spefication complete in all respect.",
+        "Description": "Providing and welding 20x4 mm M S Guard Flats 10cm c/c in steel windows of standard rolled steel section including a coat of steel peimer as per drawing and spetification complete in all respect.",
         "Original Quantity": 66.0,
         "Original Unit": "Kg.",
         "Schedule Item Code": "N.S.I.",
         "Material Category": "Steel",
-        "Discipline": "Architectural"
+        "Discipline": "Architectural",
+        "Floor / Section": "Steel Work",
+        "Material / Product": "MS Guard Flats",
+        "Grade": null,
+        "Mix Ratio": null,
+        "Classification (Matched)": "Steel Work > MS Flats > Window Grills & Guards"
     },
     {
         "BOQ Item No.": "38.",
@@ -366,7 +566,12 @@
         "Original Unit": "Kg.",
         "Schedule Item Code": "10.14",
         "Material Category": "Steel",
-        "Discipline": "Architectural"
+        "Discipline": "Architectural",
+        "Floor / Section": "Steel Work",
+        "Material / Product": "T-Iron Frames",
+        "Grade": null,
+        "Mix Ratio": "1:3:6",
+        "Classification (Matched)": "Steel Work > Frames > T-Iron"
     },
     {
         "BOQ Item No.": "39.",
@@ -375,7 +580,12 @@
         "Original Unit": "Each",
         "Schedule Item Code": "10.19",
         "Material Category": "Steel",
-        "Discipline": "Structural"
+        "Discipline": "Structural",
+        "Floor / Section": "Steel Work",
+        "Material / Product": "MS Fan Clamp",
+        "Grade": null,
+        "Mix Ratio": null,
+        "Classification (Matched)": "Steel Work > Ancillary Structural > Fan Clamps"
     },
     {
         "BOQ Item No.": "40.",
@@ -384,16 +594,26 @@
         "Original Unit": "Sq.m",
         "Schedule Item Code": "11.4.2",
         "Material Category": "Concrete",
-        "Discipline": "Architectural"
+        "Discipline": "Architectural",
+        "Floor / Section": "Flooring",
+        "Material / Product": "Cement Concrete Flooring",
+        "Grade": null,
+        "Mix Ratio": "1:2:4",
+        "Classification (Matched)": "Flooring > Cement Concrete > Plain Flooring"
     },
     {
         "BOQ Item No.": "41.",
-        "Description": "18 mm thick cement plaster skirting (upto 30 cm height) with cement mortar 1:3 (1 cement : 3 coarse sand) finished with a floating coat of neat cement including rounding of junctions with floors.",
+        "Description": "18 mm thick cement plastesr skirting (upto 30 cm height) with cement mortar 1:3 (1 cement : 3 coarse sand) finished with a floating coat of neat cement including rounding of junctions with floors.",
         "Original Quantity": 11.0,
         "Original Unit": "Sq.m",
         "Schedule Item Code": "11.10.1",
-        "Material Category": "Concrete",
-        "Discipline": "Architectural"
+        "Material Category": "Plaster / Mortar",
+        "Discipline": "Architectural",
+        "Floor / Section": "Flooring",
+        "Material / Product": "Cement Plaster Skirting",
+        "Grade": null,
+        "Mix Ratio": "1:3",
+        "Classification (Matched)": "Flooring > Skirting > Cement Plaster"
     },
     {
         "BOQ Item No.": "42.",
@@ -401,8 +621,13 @@
         "Original Quantity": 9.0,
         "Original Unit": "Sq.m",
         "Schedule Item Code": "11.16.1",
-        "Material Category": "Concrete",
-        "Discipline": "Architectural"
+        "Material Category": "Marble",
+        "Discipline": "Architectural",
+        "Floor / Section": "Flooring",
+        "Material / Product": "Marble Chips Flooring",
+        "Grade": null,
+        "Mix Ratio": "1:2:4",
+        "Classification (Matched)": "Flooring > Terrazzo / Marble Chips > Cast in situ"
     },
     {
         "BOQ Item No.": "43.",
@@ -411,16 +636,26 @@
         "Original Unit": "Mtr.",
         "Schedule Item Code": "11.20.2",
         "Material Category": "Glass",
-        "Discipline": "Architectural"
+        "Discipline": "Architectural",
+        "Floor / Section": "Flooring",
+        "Material / Product": "Glass Strips",
+        "Grade": null,
+        "Mix Ratio": null,
+        "Classification (Matched)": "Flooring > Joints > Glass Strips"
     },
     {
         "BOQ Item No.": "44.",
-        "Description": "Painting top of roofs with bitumen of approved quality at 17 Kg. per 10 square metre impregnated with a coat of coarse sand at 3/2 60 dm per 10 m including cleaning the slab surface with brushes and finally with a piece of cloth lightly soaked in kerosene oil complete with residual type petroleum bitumen of penetration 80/100.",
+        "Description": "Painting top of roofs with bitumen of approved quality at 17 Kg. per 10 square metre impregnated with a coat of coarse sand at 3/60 dm 2/10 m per 10 m including cleaning the slab surface with brushes and finally with a piece of cloth lightly soaked in kerosene oil complete with residual type petroleum bitumen of penetration 80/100.",
         "Original Quantity": 65.0,
         "Original Unit": "sq.m",
         "Schedule Item Code": "12.29.1",
         "Material Category": "Bitumen",
-        "Discipline": "Civil & Sitework"
+        "Discipline": "Civil & Sitework",
+        "Floor / Section": "Roofing & Waterproofing",
+        "Material / Product": "Petroleum Bitumen",
+        "Grade": "80/100",
+        "Mix Ratio": null,
+        "Classification (Matched)": "Waterproofing > Bitumen Painting > 80/100"
     },
     {
         "BOQ Item No.": "45.",
@@ -429,7 +664,12 @@
         "Original Unit": "Sq.m",
         "Schedule Item Code": "12.35.2",
         "Material Category": "Concrete",
-        "Discipline": "Civil & Sitework"
+        "Discipline": "Civil & Sitework",
+        "Floor / Section": "Roofing & Waterproofing",
+        "Material / Product": "Lime Concrete Terracing",
+        "Grade": null,
+        "Mix Ratio": "1:2",
+        "Classification (Matched)": "Roofing > Terracing > Lime Concrete"
     },
     {
         "BOQ Item No.": "46.",
@@ -437,8 +677,13 @@
         "Original Quantity": 32.0,
         "Original Unit": "Sq.m",
         "Schedule Item Code": "N.S.I.",
-        "Material Category": "Tiles",
-        "Discipline": "Architectural"
+        "Material Category": "Clay",
+        "Discipline": "Architectural",
+        "Floor / Section": "Roofing & Finishing",
+        "Material / Product": "Burnt Clay Tiles",
+        "Grade": null,
+        "Mix Ratio": "1:3",
+        "Classification (Matched)": "Roofing > Tiling > Burnt Clay Tiles"
     },
     {
         "BOQ Item No.": "47.",
@@ -447,7 +692,12 @@
         "Original Unit": "Mtr.",
         "Schedule Item Code": "N.S.I.",
         "Material Category": "Concrete",
-        "Discipline": "Civil & Sitework"
+        "Discipline": "Civil & Sitework",
+        "Floor / Section": "Roofing & Waterproofing",
+        "Material / Product": "Cement Concrete Gola",
+        "Grade": null,
+        "Mix Ratio": "1:3:6",
+        "Classification (Matched)": "Roofing > Gola > Cement Concrete 1:3:6"
     },
     {
         "BOQ Item No.": "48.",
@@ -456,7 +706,12 @@
         "Original Unit": "Each",
         "Schedule Item Code": "12.39",
         "Material Category": "Concrete",
-        "Discipline": "Civil & Sitework"
+        "Discipline": "Civil & Sitework",
+        "Floor / Section": "Roofing & Drainage",
+        "Material / Product": "Cement Concrete Khurra",
+        "Grade": null,
+        "Mix Ratio": "1:2:4",
+        "Classification (Matched)": "Roofing > Drainage > Khurra"
     },
     {
         "BOQ Item No.": "49.",
@@ -464,8 +719,13 @@
         "Original Quantity": 10.0,
         "Original Unit": "Mtr.",
         "Schedule Item Code": "12.69.2",
-        "Material Category": "Piping",
-        "Discipline": "Civil & Sitework"
+        "Material Category": "Cast Iron",
+        "Discipline": "Civil & Sitework",
+        "Floor / Section": "Drainage & Piping",
+        "Material / Product": "CI Rain Water Pipe",
+        "Grade": null,
+        "Mix Ratio": "1:2",
+        "Classification (Matched)": "Drainage > Piping > CI Rain Water Pipe"
     },
     {
         "BOQ Item No.": "50.",
@@ -473,17 +733,55 @@
         "Original Quantity": 9.0,
         "Original Unit": "Each",
         "Schedule Item Code": "12.71.2",
-        "Material Category": "Steel",
-        "Discipline": "Civil & Sitework"
+        "Material Category": "Steel / Plumbing",
+        "Discipline": "Architectural",
+        "Floor / Section": "Drainage / Rain Water Pipes",
+        "Material / Product": "MS holderbat clamps",
+        "Grade": null,
+        "Mix Ratio": "1:2:4",
+        "Classification (Matched)": "Plumbing > Rain Water Pipe Accessories > MS Clamps"
     },
     {
         "BOQ Item No.": "51.",
-        "Description": "Providing and fixing on wall face CI accessories for rain water pipes including filling the joints with spun yarn soaked in neat cement slurry and cement mortar 1:2 (1 cement : 2 fine sand)\ni) CI plain head 100 mm dia\nii) CI plain shoe - 100 mm dia\niii) CI plain bend - 100 mm dia",
-        "Original Quantity": null,
+        "Description": "Providing and fixing on wall face CI accessories for rain water pipes including filling the joints with spun yarn soaked in neat cement slurry and cement mortar 1:2 (1 cement : 2 fine sand)\ni) CI plain head 100 mm dia",
+        "Original Quantity": 3.0,
         "Original Unit": "Each",
-        "Schedule Item Code": "12.72.2.2 / 12.72.3.2 / 12.72.1.2",
+        "Schedule Item Code": "12.72.2.2",
         "Material Category": "Cast Iron",
-        "Discipline": "Civil & Sitework"
+        "Discipline": "Architectural",
+        "Floor / Section": "Drainage / Rain Water Pipes",
+        "Material / Product": "CI plain head",
+        "Grade": null,
+        "Mix Ratio": "1:2",
+        "Classification (Matched)": "Plumbing > Rain Water Pipe Accessories > CI Plain Head"
+    },
+    {
+        "BOQ Item No.": "51.ii",
+        "Description": "Providing and fixing on wall face CI accessories for rain water pipes including filling the joints with spun yarn soaked in neat cement slurry and cement mortar 1:2 (1 cement : 2 fine sand)\nii) CI plain shoe - 100 mm dia",
+        "Original Quantity": 3.0,
+        "Original Unit": "Each",
+        "Schedule Item Code": "12.72.3.2",
+        "Material Category": "Cast Iron",
+        "Discipline": "Architectural",
+        "Floor / Section": "Drainage / Rain Water Pipes",
+        "Material / Product": "CI plain shoe",
+        "Grade": null,
+        "Mix Ratio": "1:2",
+        "Classification (Matched)": "Plumbing > Rain Water Pipe Accessories > CI Plain Shoe"
+    },
+    {
+        "BOQ Item No.": "51.iii",
+        "Description": "Providing and fixing on wall face CI accessories for rain water pipes including filling the joints with spun yarn soaked in neat cement slurry and cement mortar 1:2 (1 cement : 2 fine sand)\niii) CI plain bend - 100 mm dia",
+        "Original Quantity": 3.0,
+        "Original Unit": "Each",
+        "Schedule Item Code": "12.72.1.2",
+        "Material Category": "Cast Iron",
+        "Discipline": "Architectural",
+        "Floor / Section": "Drainage / Rain Water Pipes",
+        "Material / Product": "CI plain bend",
+        "Grade": null,
+        "Mix Ratio": "1:2",
+        "Classification (Matched)": "Plumbing > Rain Water Pipe Accessories > CI Plain Bend"
     },
     {
         "BOQ Item No.": "52.",
@@ -492,7 +790,12 @@
         "Original Unit": "Sq.m",
         "Schedule Item Code": "13.8.4",
         "Material Category": "Plaster",
-        "Discipline": "Architectural"
+        "Discipline": "Architectural",
+        "Floor / Section": "Finishes / Plastering",
+        "Material / Product": "Cement Plaster",
+        "Grade": null,
+        "Mix Ratio": "1:6",
+        "Classification (Matched)": "Plastering > Cement Plaster > 12 mm thick 1:6"
     },
     {
         "BOQ Item No.": "53.",
@@ -501,7 +804,12 @@
         "Original Unit": "Sq.m",
         "Schedule Item Code": "13.9.4",
         "Material Category": "Plaster",
-        "Discipline": "Architectural"
+        "Discipline": "Architectural",
+        "Floor / Section": "Finishes / Plastering",
+        "Material / Product": "Cement Plaster",
+        "Grade": null,
+        "Mix Ratio": "1:6",
+        "Classification (Matched)": "Plastering > Cement Plaster > 15 mm thick 1:6"
     },
     {
         "BOQ Item No.": "54.",
@@ -510,7 +818,12 @@
         "Original Unit": "Sq.m",
         "Schedule Item Code": "13.25",
         "Material Category": "Plaster",
-        "Discipline": "Architectural"
+        "Discipline": "Architectural",
+        "Floor / Section": "Finishes / Plastering",
+        "Material / Product": "Cement Plaster",
+        "Grade": null,
+        "Mix Ratio": "1:3",
+        "Classification (Matched)": "Plastering > Cement Plaster > 6 mm thick 1:3"
     },
     {
         "BOQ Item No.": "55.",
@@ -518,8 +831,13 @@
         "Original Quantity": 20.0,
         "Original Unit": "Sq.m",
         "Schedule Item Code": "13.41",
-        "Material Category": "Terrazzo",
-        "Discipline": "Architectural"
+        "Material Category": "Terrazzo / Plaster",
+        "Discipline": "Architectural",
+        "Floor / Section": "Finishes / Dado",
+        "Material / Product": "Terrazzo finish dado",
+        "Grade": null,
+        "Mix Ratio": "1:3",
+        "Classification (Matched)": "Plastering > Terrazzo Dado > 18 mm thick"
     },
     {
         "BOQ Item No.": "56.",
@@ -528,52 +846,82 @@
         "Original Unit": "Sq.m",
         "Schedule Item Code": "5.31/13.24.1",
         "Material Category": "Plaster",
-        "Discipline": "Architectural"
+        "Discipline": "Architectural",
+        "Floor / Section": "Finishes / Plastering",
+        "Material / Product": "Cement Plaster",
+        "Grade": null,
+        "Mix Ratio": "1:3",
+        "Classification (Matched)": "Plastering > RCC Surface Finishing > Cement Mortar 1:3"
     },
     {
         "BOQ Item No.": "57.",
         "Description": "White washing with lime to give an even shade on new work (three or more coats).",
         "Original Quantity": 285.0,
         "Original Unit": "Sq.m",
-        "Schedule Item Code": "13.70.1",
-        "Material Category": "Paint",
-        "Discipline": "Architectural"
+        "Schedule Item Code": "13.73.1",
+        "Material Category": "Finishes",
+        "Discipline": "Architectural",
+        "Floor / Section": "Finishing",
+        "Material / Product": "Lime / White Wash",
+        "Grade": null,
+        "Mix Ratio": null,
+        "Classification (Matched)": "Finishes > Painting & Decorating > White Wash"
     },
     {
         "BOQ Item No.": "58.",
         "Description": "Colour washing such as green, blue or buff to give an even shade on new work (two or more coats) with a base coat of white washing with lime.",
         "Original Quantity": 285.0,
         "Original Unit": "Sq.m",
-        "Schedule Item Code": "13.73.1",
-        "Material Category": "Paint",
-        "Discipline": "Architectural"
+        "Schedule Item Code": "13.81.1",
+        "Material Category": "Finishes",
+        "Discipline": "Architectural",
+        "Floor / Section": "Finishing",
+        "Material / Product": "Colour Wash",
+        "Grade": null,
+        "Mix Ratio": null,
+        "Classification (Matched)": "Finishes > Painting & Decorating > Colour Wash"
     },
     {
         "BOQ Item No.": "59.",
         "Description": "Applying priming coat with ready mixed pink or gray primer of approved brand and manufacture - on wood work (hard and soft wood)",
         "Original Quantity": 47.0,
         "Original Unit": "Sq.m",
-        "Schedule Item Code": "13.81.1",
-        "Material Category": "Paint",
-        "Discipline": "Architectural"
+        "Schedule Item Code": "13.81.4",
+        "Material Category": "Finishes",
+        "Discipline": "Architectural",
+        "Floor / Section": "Finishing",
+        "Material / Product": "Wood Primer",
+        "Grade": null,
+        "Mix Ratio": null,
+        "Classification (Matched)": "Finishes > Painting & Decorating > Primer"
     },
     {
         "BOQ Item No.": "60.",
         "Description": "Applying priming coat with readymixed zinc chromate yellow primer of approved brand and manufacture on steelwork (second coat)",
         "Original Quantity": 30.0,
         "Original Unit": "Sq.m",
-        "Schedule Item Code": "13.81.4",
-        "Material Category": "Paint",
-        "Discipline": "Architectural"
+        "Schedule Item Code": "13.84.3",
+        "Material Category": "Finishes",
+        "Discipline": "Architectural",
+        "Floor / Section": "Finishing",
+        "Material / Product": "Zinc Chromate Primer",
+        "Grade": null,
+        "Mix Ratio": null,
+        "Classification (Matched)": "Finishes > Painting & Decorating > Primer"
     },
     {
         "BOQ Item No.": "61.",
         "Description": "Painting (two or more coats) on rain water, soil, waste and vent pipes and fittings with black anticorrosive bitumastic paint of approved brand and manufacture over and including a priming coat of ready mixed zinc chromate yellow primer on new work on 100 mm diameter pipes.",
         "Original Quantity": 10.0,
         "Original Unit": "Mtr.",
-        "Schedule Item Code": "13.84.3",
-        "Material Category": "Paint",
-        "Discipline": "Architectural"
+        "Schedule Item Code": "13.94.1",
+        "Material Category": "Finishes",
+        "Discipline": "Architectural",
+        "Floor / Section": "Finishing",
+        "Material / Product": "Bitumastic Paint",
+        "Grade": null,
+        "Mix Ratio": null,
+        "Classification (Matched)": "Finishes > Painting & Decorating > Bitumastic Paint"
     },
     {
         "BOQ Item No.": "62.",
@@ -582,7 +930,12 @@
         "Original Unit": "Sq.m",
         "Schedule Item Code": "13.94.1",
         "Material Category": "Paint",
-        "Discipline": "Architectural"
+        "Discipline": "Architectural",
+        "Floor / Section": "Finishing & Painting",
+        "Material / Product": "Synthetic Enamel Paint",
+        "Grade": null,
+        "Mix Ratio": null,
+        "Classification (Matched)": "Finishing > Painting > Synthetic Enamel Paint"
     },
     {
         "BOQ Item No.": "63.",
@@ -591,7 +944,12 @@
         "Original Unit": "Sq.m",
         "Schedule Item Code": "13.101.1",
         "Material Category": "Paint",
-        "Discipline": "Architectural"
+        "Discipline": "Architectural",
+        "Floor / Section": "Finishing & Painting",
+        "Material / Product": "French Spirit Polish",
+        "Grade": null,
+        "Mix Ratio": null,
+        "Classification (Matched)": "Finishing > Polishing > French Spirit Polish"
     },
     {
         "BOQ Item No.": "64.",
@@ -600,6 +958,11 @@
         "Original Unit": "Sq.m",
         "Schedule Item Code": "16.1",
         "Material Category": "Concrete",
-        "Discipline": "Civil & Sitework"
+        "Discipline": "Civil & Sitework",
+        "Floor / Section": "Plinth Protection",
+        "Material / Product": "Cement Concrete",
+        "Grade": null,
+        "Mix Ratio": "1:3:6",
+        "Classification (Matched)": "Civil & Sitework > Plinth Protection > Cement Concrete"
     }
 ]

@@ -6,8 +6,8 @@
 *   **Visualization:** **Plotly / Matplotlib** to generate a clear, building-level material distribution chart, reflecting the data science visualization techniques I employ at IIT Madras.
 
 ## 2. What Worked
-*   [To be filled during development]
-*   [To be filled during development]
+*   **LLM Schema Expansion for Full Template Coverage:** The target Material Passport required highly specific structured fields (e.g., Mix Ratio, Material Grade, Product Name, and Classification Hierarchies). By expanding the JSON output schema in the Gemini prompt instructions, I successfully mapped the unstructured BOQ text into all required "Green" metadata columns.
+*   **Dimensional Routing & Carbon Math:** The BOQ lists quantities in varying units (Cu.m, Sq.m, Quintals). I wrote a Python dimensional router to automatically map the `Original Quantity` into the correct geometric column (`Volume`, `Area`, `Weight`, `Length`). Because I implemented dynamic density and GWP lookups (ICE Database), the script successfully executed mathematical operations across the dataframe (Volume $\times$ Density $\times$ GWP) to fully populate the "Amber" Embodied Carbon (A1-A3) bonus columns.
 
 ## 3. What Broke / Did Not Work
 *   **Model Deprecation Cascades:** 
