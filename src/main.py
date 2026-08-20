@@ -1,6 +1,7 @@
 import os
 import json
 import time
+import re
 import pandas as pd
 import matplotlib.pyplot as plt
 import openpyxl
@@ -19,7 +20,7 @@ api_keys = [k.strip() for k in keys_env.split(",") if k.strip()]
 PDF_PATH = "data/BoQ_CBRI_Principals_Residence.pdf"
 TEMPLATE_PATH = "data/AMP_Passport_Template.xlsx"
 
-# List of Flash models discovered from our check_models.py script
+# Ranked list of Flash models for fallback rotation
 FALLBACK_MODELS = [
     "gemini-3.6-flash",
     "gemini-3.7-flash",
@@ -41,23 +42,38 @@ Extract the building metadata and return EXACTLY a JSON object with these keys:
 - Capacity
 """
 
+# ENHANCED PROMPT: Handles Sub-items, Dimensions, and Audit Tags
 extract_prompt_template = """
-You are an expert Quantity Surveyor and Data Engineer. 
-Read the Bill of Quantities PDF. 
+You are an expert Quantity Surveyor and Data Engineer. Read the Bill of Quantities PDF. 
 Extract ONLY the line items numbered from {start} to {end} inclusive into a structured JSON array of objects. 
+
+CRITICAL RULE FOR SUB-ITEMS: If an item has a main parent description but lists specific sub-items (e.g., i, ii, a, b) with their own quantities below it, you MUST split them into separate JSON objects. Combine the parent description and the child description. Set the "BOQ Item No." to reflect the split (e.g., "31.i", "31.ii"). Do NOT lump multiple quantities into a single row.
+
 Map the extracted data to these specific keys exactly:
-- "BOQ Item No.": The serial number (e.g., "1.", "2.").
-- "Description": The full text description of the work.
+- "BOQ Item No.": The serial number (e.g., "1.", "31.i").
+- "Description": The full text description of the work (parent + child if split).
 - "Original Quantity": The quantity number (e.g., 32.0). If empty, use null.
 - "Original Unit": The unit of measurement (e.g., "Cu.m", "Sq.m", "Quintal").
-- "Schedule Item Code": The DSR 1989 Code No. (e.g., "2.8", "4.5.10"). If empty, use null.
+- "Schedule Item Code": The DSR 1989 Code No. (e.g., "2.8"). If empty, use null.
 - "Material Category": Infer the primary material (e.g., "Concrete", "Earthwork", "Steel", "Brick", "Wood").
 - "Discipline": Infer one of: "Civil & Sitework", "Structural", "Architectural".
-- "Floor / Section": Identify the heading/sub-head from the BOQ (e.g., "Earth Work", "Concrete Work").
-- "Material / Product": A short specific name (e.g., "Ready mix concrete", "TMT Bar", "Clay Bricks", "Earth").
-- "Grade": Any material grade mentioned (e.g., "M-15", "Fe-500D"). If none, use null.
-- "Mix Ratio": Any concrete/mortar mix ratio mentioned (e.g., "1:4:8", "1:6"). If none, use null.
-- "Classification (Matched)": Create a hierarchical classification string (e.g., "Concrete > Nominal-mix > 1:4:8").
+- "Floor / Section": Identify the heading/sub-head from the BOQ.
+- "Material / Product": A short specific name (e.g., "Ready mix concrete", "TMT Bar").
+- "All Materials Detected": Array of strings of all materials mentioned.
+- "Material Confidence": "High", "Medium", or "Low".
+- "Grade": Any material grade mentioned.
+- "Mix Ratio": Any mix ratio mentioned.
+- "Standard / Code Reference": Any Indian Standard codes explicitly mentioned.
+- "Classification (Matched)": Create a hierarchical classification string.
+- "Length (mm)": Extract from description if present (numeric only).
+- "Width (mm)": Extract from description if present (numeric only).
+- "Height (mm)": Extract from description if present (numeric only).
+- "Thickness (mm)": Extract from description if present (e.g., "12 mm thick" -> 12).
+- "Depth (mm)": Extract from description if present (numeric only).
+- "Diameter (mm)": Extract from description if present (numeric only).
+- "Unit Rate": The rate amount if visible, else null.
+- "Total Cost": The total amount if visible, else null.
+- "Audit Tag": Use "[OK]" for clean extractions, "[FLAG]" for messy/unclear scans, "[EXCLUDED]" for earth/labour, "[MULTI-SUB]" if you successfully split a parent item.
 
 Respond ONLY with the JSON array. Do NOT extract items outside the range {start} to {end}.
 """
@@ -66,7 +82,6 @@ Respond ONLY with the JSON array. Do NOT extract items outside the range {start}
 # 2. MODEL ROTATION HELPER
 # ---------------------------------------------------------
 def generate_with_fallback(client, contents):
-    """Tries a list of models. If one is overloaded (503) or missing (404), tries the next."""
     for model_name in FALLBACK_MODELS:
         try:
             response = client.models.generate_content(
@@ -81,28 +96,33 @@ def generate_with_fallback(client, contents):
                 print(f"    [!] Model {model_name} failed (503/404). Falling back to next model...")
                 continue
             else:
-                # If it's a 429 Quota Error, we raise it so the outer Key Rotation loop catches it
                 raise e
     raise RuntimeError("All fallback models are currently unavailable or overloaded.")
 
 # ---------------------------------------------------------
-# 3. STATE TRACKING & CHUNKING SETUP
+# 3. HELPER: SAFE FLOAT PARSING
+# ---------------------------------------------------------
+def safe_float(val):
+    if val is None or val == "":
+        return None
+    try:
+        # Strip letters/spaces just in case LLM left "mm" in the value
+        clean = re.sub(r'[^\d.]', '', str(val))
+        return float(clean) if clean else None
+    except:
+        return None
+
+# ---------------------------------------------------------
+# 4. STATE TRACKING & CHUNKING SETUP
 # ---------------------------------------------------------
 metadata_done = False
 meta_data = {}
-
-chunks = [
-    (1, 7), (8, 14), (15, 21), (22, 28), (29, 35),
-    (36, 42), (43, 49), (50, 56), (57, 61), (62, 64)
-]
+chunks = [(1, 7), (8, 14), (15, 21), (22, 28), (29, 35), (36, 42), (43, 49), (50, 56), (57, 61), (62, 64)]
 completed_chunks = set()
 all_extracted_items = []
 
-print(f"Starting Bulletproof Pipeline with {len(api_keys)} Keys and {len(FALLBACK_MODELS)} Models.\n")
+print(f"Starting Master Pipeline with {len(api_keys)} Keys and {len(FALLBACK_MODELS)} Models.\n")
 
-# ---------------------------------------------------------
-# 4. STATEFUL KEY ROTATION & EXTRACTION LOOP
-# ---------------------------------------------------------
 for idx, key in enumerate(api_keys):
     if metadata_done and len(completed_chunks) == len(chunks):
         break  
@@ -110,8 +130,6 @@ for idx, key in enumerate(api_keys):
     try:
         print(f"\n--- Attempting execution with API Key {idx + 1} of {len(api_keys)} ---")
         client = genai.Client(api_key=key)
-        
-        print("Uploading PDF to Gemini...")
         boq_file = client.files.upload(file=PDF_PATH, config={'display_name': f'BoQ_Key_{idx}'})
         
         if not metadata_done:
@@ -128,7 +146,6 @@ for idx, key in enumerate(api_keys):
                 
             print(f"Extracting Line Items {start} to {end}...")
             chunk_prompt = extract_prompt_template.format(start=start, end=end)
-            
             boq_response, used_model = generate_with_fallback(client, [boq_file, chunk_prompt])
             chunk_items = json.loads(boq_response.text)
             all_extracted_items.extend(chunk_items)
@@ -143,13 +160,8 @@ for idx, key in enumerate(api_keys):
     except Exception as e:
         print(f"Error encountered: {e}")
         if "429" in str(e) or "RESOURCE_EXHAUSTED" in str(e):
-            print(f"⚠ Rate limit reached on API Key {idx + 1}.")
-            if idx < len(api_keys) - 1:
-                print("Rotating to the next API key and resuming exactly where it left off...")
-            else:
-                print("All provided API keys exhausted.")
+            print(f"⚠ Rate limit reached on API Key {idx + 1}. Rotating...")
         else:
-            print("Fatal error encountered. Halting execution.")
             break
 
 os.makedirs("output", exist_ok=True)
@@ -160,49 +172,58 @@ os.makedirs("output", exist_ok=True)
 print("\nSaving Output Files...")
 with open("output/building_meta.json", "w") as f:
     json.dump(meta_data, f, indent=4)
-print("✔ Metadata saved to output/building_meta.json")
-
 with open("output/passport.json", "w") as f:
     json.dump(all_extracted_items, f, indent=4)
-print(f"✔ Extracted {len(all_extracted_items)} items saved to output/passport.json")
 
 # ---------------------------------------------------------
-# 6. MAP TO EXCEL TEMPLATE, ROUTE DIMENSIONS & APPLY CARBON MATH
+# 6. MAP TO EXCEL: GMAP ID, DERIVED MATH, AND AUDIT COMMENTS
 # ---------------------------------------------------------
-print("Mapping data to Excel Template and applying Carbon Math...")
-
+print("Mapping data to Excel Template with Dimensions and Derived Math...")
 wb = openpyxl.load_workbook(TEMPLATE_PATH)
 ws = wb["Material Passport"]
 
-# Clear existing example rows (preserve headers in rows 1-3)
-max_row = ws.max_row
-if max_row >= 4:
-    ws.delete_rows(4, max_row - 3)
-
-# Get column names from row 3
+if ws.max_row >= 4:
+    ws.delete_rows(4, ws.max_row - 3)
 headers = [cell.value for cell in ws[3]]
 
 for item in all_extracted_items:
-    qty = item.get("Original Quantity")
+    qty = safe_float(item.get("Original Quantity"))
     unit = str(item.get("Original Unit") or "").lower().strip()
     mat_cat = str(item.get("Material Category", "")).lower()
+    item_no = str(item.get("BOQ Item No.", "")).strip()
     
-    # Automated Carbon & Density Lookup
-    density, gwp, comment = "", "", ""
-    if "concrete" in mat_cat:
-        density, gwp, comment = 2400, 0.15, "ICE Database V3.0 (Concrete)"
-    elif "steel" in mat_cat or "reinforcement" in mat_cat:
-        density, gwp, comment = 7850, 2.50, "ICE Database V3.0 (Steel)"
-    elif "brick" in mat_cat:
-        density, gwp, comment = 1900, 0.24, "ICE Database V3.0 (Bricks)"
-    elif "wood" in mat_cat or "timber" in mat_cat:
-        density, gwp, comment = 650, 0.45, "ICE Database V3.0 (Timber/Wood)"
-    elif "earth" in mat_cat or "sand" in mat_cat:
-        density, gwp, comment = 1600, 0.01, "ICE Database V3.0 (Aggregates/Sand)"
+    # GROUP 1: Generate deterministic GMAP Id (e.g., AMP-CBRI-PR-31-i)
+    gmap_id = f"AMP-CBRI-PR-{item_no.replace('.', '-')}" if item_no else ""
+    if gmap_id.endswith('-'): gmap_id = gmap_id[:-1]
 
-    # Base Row Dictionary (Fills ALL GREEN required columns now)
+    # Process Array of Materials
+    all_mats_raw = item.get("All Materials Detected", [])
+    all_mats = ", ".join(str(m) for m in all_mats_raw) if isinstance(all_mats_raw, list) else str(all_mats_raw)
+    
+    # Automated Carbon Lookup (AMBER Columns)
+    density, gwp, db_citation = "", "", ""
+    if "concrete" in mat_cat: density, gwp, db_citation = 2400, 0.15, "ICE Database V3.0"
+    elif "steel" in mat_cat or "reinforcement" in mat_cat: density, gwp, db_citation = 7850, 2.50, "ICE Database V3.0"
+    elif "brick" in mat_cat: density, gwp, db_citation = 1900, 0.24, "ICE Database V3.0"
+    elif "wood" in mat_cat or "timber" in mat_cat: density, gwp, db_citation = 650, 0.45, "ICE Database V3.0"
+    elif "earth" in mat_cat or "sand" in mat_cat: density, gwp, db_citation = 1600, 0.01, "ICE Database V3.0"
+
+    # Merge Audit Tag with Citation for Final Comment
+    audit_tag = item.get("Audit Tag", "[OK]")
+    if "EXCLUDED" in audit_tag:
+        final_comment = f"{audit_tag} negligible embodied material carbon"
+    else:
+        final_comment = f"{audit_tag} {db_citation}".strip()
+
+    # GROUP 2: Dimensions
+    thick_mm = safe_float(item.get("Thickness (mm)"))
+    len_mm = safe_float(item.get("Length (mm)"))
+    width_mm = safe_float(item.get("Width (mm)"))
+
+    # Base Row Dictionary
     row_dict = {
-        "BOQ Item No.": item.get("BOQ Item No."),
+        "GMAP Id": gmap_id,
+        "BOQ Item No.": item_no,
         "Description": item.get("Description"),
         "Original Quantity": qty,
         "Original Unit": item.get("Original Unit"),
@@ -211,56 +232,80 @@ for item in all_extracted_items:
         "Discipline": item.get("Discipline"),
         "Floor / Section": item.get("Floor / Section"),
         "Material / Product": item.get("Material / Product"),
+        "All Materials Detected": all_mats,
+        "Material Confidence": item.get("Material Confidence"),
         "Grade": item.get("Grade"),
         "Mix Ratio": item.get("Mix Ratio"),
+        "Standard / Code Reference": item.get("Standard / Code Reference"),
         "Classification (Matched)": item.get("Classification (Matched)"),
+        "Length (mm)": len_mm,
+        "Width (mm)": width_mm,
+        "Height (mm)": safe_float(item.get("Height (mm)")),
+        "Thickness (mm)": thick_mm,
+        "Depth (mm)": safe_float(item.get("Depth (mm)")),
+        "Diameter (mm)": safe_float(item.get("Diameter (mm)")),
+        "Unit Rate": item.get("Unit Rate"),
+        "Total Cost": item.get("Total Cost"),
+        "Currency": "INR" if item.get("Unit Rate") or item.get("Total Cost") else "",
         "Schedule (DSR/SOR)": "DSR 1989", 
         "Density (kg/m³)": density,
         "GWP / kg (kg CO₂e/kg)": gwp,
-        "Comment": comment
+        "Comment": final_comment
     }
 
-    # Dynamic Dimensional Routing (Transforms Original Qty into proper column)
-    try:
-        q = float(qty) if qty else 0
-    except:
-        q = 0
+    # GROUP 3: Dynamic Dimensional Routing & Derived Quantities Math
+    vol_m3, area_m2, weight_kg = "", "", ""
+    derived_q, derived_u, derived_b = "", "", ""
 
-    if q > 0:
-        if "cum" in unit or "cu.m" in unit or "m3" in unit or "cubic" in unit:
-            row_dict["Volume (m³)"] = q
-        elif "sqm" in unit or "sq.m" in unit or "m2" in unit or "square" in unit:
-            row_dict["Area (m²)"] = q
-        elif unit in ["rm", "m", "metre", "meter", "running meter"]:
-            row_dict["Length (m)"] = q
-        elif "kg" in unit or "kilogram" in unit:
-            row_dict["Weight (kg)"] = q
+    if qty and qty > 0:
+        if "cum" in unit or "cu.m" in unit or "m3" in unit:
+            vol_m3 = qty
+            row_dict["Volume (m³)"] = qty
+        elif "sqm" in unit or "sq.m" in unit or "m2" in unit:
+            area_m2 = qty
+            row_dict["Area (m²)"] = qty
+            # Convert Area to Volume if Thickness is found
+            if thick_mm:
+                derived_q = round(qty * (thick_mm / 1000.0), 3)
+                derived_u = "Volume (m³)"
+                derived_b = f"Area ({qty}) * Thickness ({thick_mm}mm)"
+                vol_m3 = derived_q # Use derived volume for carbon math
+        elif unit in ["rm", "m", "metre", "meter"]:
+            row_dict["Length (m)"] = qty
+        elif "kg" in unit:
+            weight_kg = qty
+            row_dict["Weight (kg)"] = qty
         elif "quintal" in unit:
-            row_dict["Weight (kg)"] = q * 100
+            weight_kg = qty * 100
+            row_dict["Weight (kg)"] = weight_kg
         elif "mt" in unit or "tonne" in unit:
-            row_dict["Weight (kg)"] = q * 1000
-        elif "each" in unit or "nos" in unit or "number" in unit:
-            row_dict["Count (Nos)"] = q
+            weight_kg = qty * 1000
+            row_dict["Weight (kg)"] = weight_kg
+        elif "each" in unit or "nos" in unit:
+            row_dict["Count (Nos)"] = qty
 
-    # Calculate Total Embodied Carbon (A1-A3) mathematically for AMBER columns
-    if "Volume (m³)" in row_dict and density and gwp:
-        row_dict["Embodied Carbon A1-A3 (kg CO₂e)"] = round(row_dict["Volume (m³)"] * density * gwp, 2)
-    elif "Weight (kg)" in row_dict and gwp:
-        row_dict["Embodied Carbon A1-A3 (kg CO₂e)"] = round(row_dict["Weight (kg)"] * gwp, 2)
+    row_dict["Derived Quantity"] = derived_q
+    row_dict["Derived Quantity Unit"] = derived_u
+    row_dict["Derived Quantity Basis"] = derived_b
 
-    # Construct list matching template columns exactly
+    # Final Embodied Carbon Math (Prioritizes Derived Volume over raw Area)
+    if vol_m3 and density and gwp:
+        row_dict["Embodied Carbon A1-A3 (kg CO₂e)"] = round(vol_m3 * density * gwp, 2)
+    elif weight_kg and gwp:
+        row_dict["Embodied Carbon A1-A3 (kg CO₂e)"] = round(weight_kg * gwp, 2)
+
+    # Append to worksheet
     row_values = [row_dict.get(col, "") for col in headers]
     ws.append(row_values)
 
 wb.save("output/passport_filled.xlsx")
-print("✔ Excel file saved cleanly to output/passport_filled.xlsx with dynamic dimensions and carbon math.")
+print("✔ Excel saved: GMAP IDs assigned, Derived Math applied, and Audit Comments logged.")
 
 # ---------------------------------------------------------
 # 7. GENERATE VISUALIZATION CHART
 # ---------------------------------------------------------
 df_output = pd.DataFrame(all_extracted_items)
 if not df_output.empty and "Material Category" in df_output.columns:
-    print("Generating Material Distribution Chart...")
     df_plot = df_output["Material Category"].value_counts().reset_index()
     df_plot.columns = ["Material Category", "Count"]
 
@@ -272,6 +317,5 @@ if not df_output.empty and "Material Category" in df_output.columns:
     plt.xticks(rotation=45, ha="right")
     plt.tight_layout()
     plt.savefig("output/visualization.png", dpi=300)
-    print("✔ Visualization chart saved to output/visualization.png")
 
 print("\nPipeline execution complete! All deliverables generated.")
