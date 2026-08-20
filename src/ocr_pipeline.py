@@ -6,6 +6,7 @@ import os
 import tempfile
 import re
 import io
+import time
 import openpyxl
 from openpyxl.styles import Alignment
 import matplotlib.pyplot as plt
@@ -14,6 +15,15 @@ from google.genai import types
 
 # --- PAGE CONFIGURATION ---
 st.set_page_config(page_title="AMP-GEN Material Passport", layout="wide")
+
+# --- SESSION STATE INITIALIZATION ---
+# This is what keeps results alive across reruns (download clicks, slider moves, tab switches).
+if "extraction_done" not in st.session_state:
+    st.session_state.extraction_done = False
+    st.session_state.excel_bytes = None
+    st.session_state.json_data = None
+    st.session_state.img_bytes = None
+    st.session_state.df_extracted = None
 
 # Fallback Models list matching main.py backend logic
 FALLBACK_MODELS = [
@@ -367,10 +377,11 @@ with tab3:
                     for cell in ws[ws.max_row]:
                         cell.alignment = Alignment(wrap_text=True, vertical='top')
 
-                # --- PREPARE DOWNLOAD BUFFERS ---
+                # --- PREPARE OUTPUT BYTES ---
                 excel_buffer = io.BytesIO()
                 wb.save(excel_buffer)
                 excel_buffer.seek(0)
+                excel_bytes = excel_buffer.getvalue()
                 
                 json_data = json.dumps(all_extracted_items, indent=4)
                 
@@ -390,22 +401,62 @@ with tab3:
                 img_buffer = io.BytesIO()
                 plt.savefig(img_buffer, format='png', dpi=300)
                 img_buffer.seek(0)
-                
-                st.success("✅ Full extraction, cleaning, and mapping pipeline complete!")
-                
-                # Side-by-side Download Buttons
-                dl_col1, dl_col2, dl_col3 = st.columns(3)
-                with dl_col1:
-                    st.download_button("📥 Download Excel (.xlsx)", data=excel_buffer, file_name="passport_filled.xlsx", mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", use_container_width=True)
-                with dl_col2:
-                    st.download_button("📥 Download JSON (.json)", data=json_data, file_name="passport.json", mime="application/json", use_container_width=True)
-                with dl_col3:
-                    st.download_button("📥 Download Chart (.png)", data=img_buffer, file_name="visualization.png", mime="image/png", use_container_width=True)
-                
-                st.dataframe(df_extracted, use_container_width=True)
-                
+                img_bytes = img_buffer.getvalue()
+                plt.close(fig)
+
+                # --- SAVE TO output/ SO TAB 1 & TAB 2 PICK THEM UP TOO ---
+                os.makedirs("output", exist_ok=True)
+                with open("output/passport_filled.xlsx", "wb") as f:
+                    f.write(excel_bytes)
+                with open("output/passport.json", "w", encoding="utf-8") as f:
+                    f.write(json_data)
+                with open("output/visualization.png", "wb") as f:
+                    f.write(img_bytes)
+
+                # --- PERSIST RESULTS ACROSS RERUNS ---
+                st.session_state.excel_bytes = excel_bytes
+                st.session_state.json_data = json_data
+                st.session_state.img_bytes = img_bytes
+                st.session_state.df_extracted = df_extracted
+                st.session_state.extraction_done = True
+
             except Exception as e:
                 st.error(f"Error during execution: {e}")
             finally:
                 if 'tmp_path' in locals() and os.path.exists(tmp_path):
                     os.remove(tmp_path)
+
+    # --- RESULTS DISPLAY (persists across reruns: downloads, tab switches, slider moves) ---
+    if st.session_state.extraction_done:
+        st.success("✅ Full extraction, cleaning, and mapping pipeline complete!")
+
+        dl_col1, dl_col2, dl_col3 = st.columns(3)
+        with dl_col1:
+            st.download_button(
+                "📥 Download Excel (.xlsx)",
+                data=st.session_state.excel_bytes,
+                file_name="passport_filled.xlsx",
+                mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+                use_container_width=True,
+                key="dl_excel"
+            )
+        with dl_col2:
+            st.download_button(
+                "📥 Download JSON (.json)",
+                data=st.session_state.json_data,
+                file_name="passport.json",
+                mime="application/json",
+                use_container_width=True,
+                key="dl_json"
+            )
+        with dl_col3:
+            st.download_button(
+                "📥 Download Chart (.png)",
+                data=st.session_state.img_bytes,
+                file_name="visualization.png",
+                mime="image/png",
+                use_container_width=True,
+                key="dl_png"
+            )
+
+        st.dataframe(st.session_state.df_extracted, use_container_width=True)
