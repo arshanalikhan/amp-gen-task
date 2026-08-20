@@ -57,7 +57,14 @@ Map the extracted data to these specific keys exactly:
 - "Schedule Item Code": The DSR 1989 Code No. (e.g., "2.8"). If empty, use null.
 - "Material Category": Infer the primary material (e.g., "Concrete", "Earthwork", "Steel", "Brick", "Wood").
 - "Discipline": Infer one of: "Civil & Sitework", "Structural", "Architectural".
-- "Floor / Section": Identify the heading/sub-head from the BOQ.
+- "Floor / Section": Infer this directly from keywords in the item's own Description text (do NOT rely on section headings, since this BOQ has none). Look for phrases indicating structural stage or location and normalize them, for example:
+  - "excavation", "foundation trenches", "footings", "plinth" -> "Foundation"
+  - "upto floor two level" -> "Upto Floor Two Level"
+  - "suspended floors, roofs, landings" or "roof" -> "Roof"
+  - "superstructure above plinth" -> "Superstructure"
+  - "damp-proof course" -> "Plinth"
+  - "doors, windows, ventilators" -> "Doors & Windows"
+  If the description clearly matches one of these or a similar structural stage, use that. If truly no locational or stage-related keyword is present anywhere in the description, use "General".
 - "Material / Product": A short specific name (e.g., "Ready mix concrete", "TMT Bar").
 - "All Materials Detected": Array of strings of all materials mentioned.
 - "Material Confidence": "High", "Medium", or "Low".
@@ -144,7 +151,10 @@ for idx, key in enumerate(api_keys):
         if not metadata_done:
             print("Extracting Building Metadata...")
             meta_response, used_model = generate_with_fallback(client, [boq_file, meta_prompt])
-            meta_data = json.loads(meta_response.text)
+            try:
+                meta_data = json.loads(meta_response.text)
+            except json.JSONDecodeError as je:
+                raise RuntimeError(f"Metadata response was not valid JSON (model: {used_model}): {je}")
             metadata_done = True
             print(f"✔ Metadata extraction successful (using {used_model}).")
             time.sleep(10)
@@ -155,7 +165,10 @@ for idx, key in enumerate(api_keys):
             print(f"Extracting Line Items {start} to {end}...")
             chunk_prompt = extract_prompt_template.format(start=start, end=end)
             boq_response, used_model = generate_with_fallback(client, [boq_file, chunk_prompt])
-            chunk_items = json.loads(boq_response.text)
+            try:
+                chunk_items = json.loads(boq_response.text)
+            except json.JSONDecodeError as je:
+                raise RuntimeError(f"Chunk {start}-{end} response was not valid JSON (model: {used_model}): {je}")
             all_extracted_items.extend(chunk_items)
             completed_chunks.add((start, end))
             print(f"✔ Successfully extracted items {start} to {end} (using {used_model}).")
@@ -170,6 +183,9 @@ for idx, key in enumerate(api_keys):
             print(f"⚠ Rate limit reached on API Key {idx + 1}. Rotating...")
         else:
             break
+
+if len(completed_chunks) < len(chunks):
+    print(f"⚠ WARNING: Only {len(completed_chunks)}/{len(chunks)} chunks completed. Output is incomplete.")
 
 # ---------------------------------------------------------
 # 4. DATA CLEANING, UNIT NORMALIZATION & REGEX 
@@ -195,14 +211,14 @@ for item in all_extracted_items:
     qty = safe_float(item.get("Original Quantity"))
     description = str(item.get("Description") or "")
     
-    # --- FIX 1: FILTERED FORWARD FILL 'FLOOR / SECTION' ---
+    # --- Use the LLM's own per-item Floor / Section; only forward-fill if blank ---
     floor = str(item.get("Floor / Section") or "").strip()
-    # Ignore garbage header text
     bad_headers = ["bill of quantities", "p/gen", "modified", "null", "none", ""]
     if floor and not any(bad in floor.lower() for bad in bad_headers):
-        current_floor = floor 
-    
-    item["Floor / Section"] = current_floor
+        current_floor = floor
+        item["Floor / Section"] = floor
+    else:
+        item["Floor / Section"] = current_floor
 
     # --- SPECIAL EDGE CASE: ITEM 24 ---
     if "decimetre" in raw_u:
@@ -241,6 +257,7 @@ for item in all_extracted_items:
 # 5. SAVE RAW JSON OUTPUTS
 # ---------------------------------------------------------
 print("\nSaving Output Files...")
+os.makedirs("output", exist_ok=True)
 with open("output/building_meta.json", "w") as f:
     json.dump(meta_data, f, indent=4)
 with open("output/passport.json", "w") as f:
@@ -266,7 +283,7 @@ for item in all_extracted_items:
     gmap_id = f"AMP-CBRI-PR-{item_no.replace('.', '-')}" if item_no else ""
     if gmap_id.endswith('-'): gmap_id = gmap_id[:-1]
 
-    all_mats_raw = item.get("All Materials Detected", [])
+    all_mats_raw = item.get("All Materials Detected") or []
     all_mats = ", ".join(str(m) for m in all_mats_raw) if isinstance(all_mats_raw, list) else str(all_mats_raw)
     
     density, gwp, db_citation = "", "", ""
@@ -383,5 +400,6 @@ if not df_output.empty and "Material Category" in df_output.columns:
     plt.xticks(rotation=45, ha="right")
     plt.tight_layout()
     plt.savefig("output/visualization.png", dpi=300)
+    plt.close()
 
 print("\nPipeline execution complete! All deliverables generated.")
