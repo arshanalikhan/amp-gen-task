@@ -148,7 +148,7 @@ with tab3:
     api_key_input = st.text_input("Enter Gemini API Key (or leave blank to use server secrets):", type="password")
     
     if st.button("Start Extraction Process", type="primary"):
-        raw_keys = api_key_input if api_key_input else os.environ.get("GEMINI_API_KEYS", "")
+        raw_keys = api_key_input if api_key_input else st.secrets.get("GEMINI_API_KEYS", "")
         api_keys = [k.strip() for k in raw_keys.split(",") if k.strip()]
         
         if not api_keys:
