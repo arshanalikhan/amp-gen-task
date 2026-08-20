@@ -5,6 +5,7 @@ import re
 import pandas as pd
 import matplotlib.pyplot as plt
 import openpyxl
+from openpyxl.styles import Alignment
 from google import genai
 from google.genai import types
 
@@ -29,17 +30,16 @@ FALLBACK_MODELS = [
     "gemini-3.1-flash-lite"
 ]
 
+# FIX 3: Strict Metadata Schema matching the Instructions sheet
 meta_prompt = """
 Analyze the first page of this uploaded document.
 Extract the building metadata and return EXACTLY a JSON object with these keys:
-- Project_Name
-- Institute
-- Location
 - Depth_of_Foundation
 - Plinth_Height
 - Plinth_Area
+- No_of_Items
 - Seismic_Zone
-- Capacity
+- Bearing_Capacity
 """
 
 # ENHANCED PROMPT: Handles Sub-items, Dimensions, and Audit Tags
@@ -79,7 +79,7 @@ Respond ONLY with the JSON array. Do NOT extract items outside the range {start}
 """
 
 # ---------------------------------------------------------
-# 2. MODEL ROTATION HELPER
+# 2. HELPER FUNCTIONS
 # ---------------------------------------------------------
 def generate_with_fallback(client, contents):
     for model_name in FALLBACK_MODELS:
@@ -99,21 +99,30 @@ def generate_with_fallback(client, contents):
                 raise e
     raise RuntimeError("All fallback models are currently unavailable or overloaded.")
 
-# ---------------------------------------------------------
-# 3. HELPER: SAFE FLOAT PARSING
-# ---------------------------------------------------------
 def safe_float(val):
     if val is None or val == "":
         return None
     try:
-        # Strip letters/spaces just in case LLM left "mm" in the value
         clean = re.sub(r'[^\d.]', '', str(val))
         return float(clean) if clean else None
     except:
         return None
 
+# FIX 1: Unit Normalization function based on Instruction Sheet
+def normalize_unit(raw_unit):
+    if not raw_unit: return ""
+    u = str(raw_unit).lower().strip()
+    if any(x in u for x in ["cum", "cu.m", "m3", "cubic metre", "cubic meter"]): return "cum"
+    if any(x in u for x in ["sqm", "sq.m", "m2", "square"]): return "sqm"
+    if any(x in u for x in ["rm", "mtr", "metre", "meter"]) or u == "m": return "m"
+    if any(x in u for x in ["kg", "kilogram"]): return "kg"
+    if any(x in u for x in ["each", "nos", "number"]): return "nos"
+    if "quintal" in u: return "quintal"
+    if "tonne" in u or "mt" in u: return "tonne"
+    return u
+
 # ---------------------------------------------------------
-# 4. STATE TRACKING & CHUNKING SETUP
+# 3. STATE TRACKING & CHUNKING SETUP
 # ---------------------------------------------------------
 metadata_done = False
 meta_data = {}
@@ -141,8 +150,7 @@ for idx, key in enumerate(api_keys):
             time.sleep(10)
 
         for start, end in chunks:
-            if (start, end) in completed_chunks:
-                continue 
+            if (start, end) in completed_chunks: continue 
                 
             print(f"Extracting Line Items {start} to {end}...")
             chunk_prompt = extract_prompt_template.format(start=start, end=end)
@@ -152,8 +160,7 @@ for idx, key in enumerate(api_keys):
             completed_chunks.add((start, end))
             print(f"✔ Successfully extracted items {start} to {end} (using {used_model}).")
             
-            if len(completed_chunks) < len(chunks):
-                time.sleep(10)
+            if len(completed_chunks) < len(chunks): time.sleep(10)
             
         print("\n✔ All chunks processed successfully!")
         
@@ -164,8 +171,72 @@ for idx, key in enumerate(api_keys):
         else:
             break
 
-os.makedirs("output", exist_ok=True)
+# ---------------------------------------------------------
+# 4. DATA CLEANING, UNIT NORMALIZATION & REGEX 
+# ---------------------------------------------------------
+current_floor = ""
+# Added 2-part Mortar ratios to the mapping
+grade_map = {
+    "1:5:10": "M5", 
+    "1:4:8": "M7.5", 
+    "1:3:6": "M10", 
+    "1:2:4": "M15", 
+    "1:1.5:3": "M20", 
+    "1:1:2": "M25",
+    "1:6": "Mortar 1:6",
+    "1:5": "Mortar 1:5",
+    "1:4": "Mortar 1:4",
+    "1:3": "Mortar 1:3",
+    "1:2": "Mortar 1:2"
+}
 
+for item in all_extracted_items:
+    raw_u = str(item.get("Original Unit") or "").lower().strip()
+    qty = safe_float(item.get("Original Quantity"))
+    description = str(item.get("Description") or "")
+    
+    # --- FIX 1: FILTERED FORWARD FILL 'FLOOR / SECTION' ---
+    floor = str(item.get("Floor / Section") or "").strip()
+    # Ignore garbage header text
+    bad_headers = ["bill of quantities", "p/gen", "modified", "null", "none", ""]
+    if floor and not any(bad in floor.lower() for bad in bad_headers):
+        current_floor = floor 
+    
+    item["Floor / Section"] = current_floor
+
+    # --- SPECIAL EDGE CASE: ITEM 24 ---
+    if "decimetre" in raw_u:
+        qty = qty / 1000.0 if qty else 0
+        unit = "cum"
+    else:
+        unit = normalize_unit(raw_u)
+        
+    item["Original Quantity"] = qty
+    item["Original Unit"] = unit
+
+    # --- FIX 3: AGGRESSIVE IS CODE EXTRACTION (findall) ---
+    is_matches = re.findall(r'(IS\s*[:\-]?\s*\d+)', description, re.IGNORECASE)
+    if is_matches:
+        # Clean and join all found codes (e.g., "IS: 9103, IS: 456")
+        cleaned_codes = [re.sub(r'IS\s*[:\-]?\s*', 'IS: ', m.upper()) for m in is_matches]
+        item["Standard / Code Reference"] = ", ".join(set(cleaned_codes))
+
+    # --- FIX 2: GRADE MAPPING (Handles both Concrete and Mortar) ---
+    mix_ratio = str(item.get("Mix Ratio") or "")
+    grade_match = re.search(r'\b(M\s*[-]?\s*\d{1,2}(?:\.5)?)\b', description, re.IGNORECASE)
+    
+    if grade_match:
+        item["Grade"] = grade_match.group(1).upper().replace(' ', '').replace('-', '')
+    elif mix_ratio and mix_ratio.lower() not in ["null", "none", ""]:
+        ratios = [r.strip().replace(" ", "") for r in mix_ratio.split(',')]
+        mapped_grades = []
+        for r in ratios:
+            if r in grade_map:
+                mapped_grades.append(grade_map[r])
+        
+        if mapped_grades:
+            item["Grade"] = ", ".join(mapped_grades)
+            
 # ---------------------------------------------------------
 # 5. SAVE RAW JSON OUTPUTS
 # ---------------------------------------------------------
@@ -182,25 +253,22 @@ print("Mapping data to Excel Template with Dimensions and Derived Math...")
 wb = openpyxl.load_workbook(TEMPLATE_PATH)
 ws = wb["Material Passport"]
 
-if ws.max_row >= 4:
-    ws.delete_rows(4, ws.max_row - 3)
+if ws.max_row >= 4: ws.delete_rows(4, ws.max_row - 3)
 headers = [cell.value for cell in ws[3]]
 
 for item in all_extracted_items:
-    qty = safe_float(item.get("Original Quantity"))
-    unit = str(item.get("Original Unit") or "").lower().strip()
+    qty = item.get("Original Quantity")
+    unit = item.get("Original Unit")
     mat_cat = str(item.get("Material Category", "")).lower()
     item_no = str(item.get("BOQ Item No.", "")).strip()
+    description = str(item.get("Description", "")) 
     
-    # GROUP 1: Generate deterministic GMAP Id (e.g., AMP-CBRI-PR-31-i)
     gmap_id = f"AMP-CBRI-PR-{item_no.replace('.', '-')}" if item_no else ""
     if gmap_id.endswith('-'): gmap_id = gmap_id[:-1]
 
-    # Process Array of Materials
     all_mats_raw = item.get("All Materials Detected", [])
     all_mats = ", ".join(str(m) for m in all_mats_raw) if isinstance(all_mats_raw, list) else str(all_mats_raw)
     
-    # Automated Carbon Lookup (AMBER Columns)
     density, gwp, db_citation = "", "", ""
     if "concrete" in mat_cat: density, gwp, db_citation = 2400, 0.15, "ICE Database V3.0"
     elif "steel" in mat_cat or "reinforcement" in mat_cat: density, gwp, db_citation = 7850, 2.50, "ICE Database V3.0"
@@ -208,25 +276,20 @@ for item in all_extracted_items:
     elif "wood" in mat_cat or "timber" in mat_cat: density, gwp, db_citation = 650, 0.45, "ICE Database V3.0"
     elif "earth" in mat_cat or "sand" in mat_cat: density, gwp, db_citation = 1600, 0.01, "ICE Database V3.0"
 
-    # Merge Audit Tag with Citation for Final Comment
     audit_tag = item.get("Audit Tag", "[OK]")
     if "EXCLUDED" in audit_tag:
         final_comment = f"{audit_tag} negligible embodied material carbon"
     else:
         final_comment = f"{audit_tag} {db_citation}".strip()
 
-    # GROUP 2: Dimensions
     thick_mm = safe_float(item.get("Thickness (mm)"))
-    len_mm = safe_float(item.get("Length (mm)"))
-    width_mm = safe_float(item.get("Width (mm)"))
 
-    # Base Row Dictionary
     row_dict = {
         "GMAP Id": gmap_id,
         "BOQ Item No.": item_no,
-        "Description": item.get("Description"),
+        "Description": description,
         "Original Quantity": qty,
-        "Original Unit": item.get("Original Unit"),
+        "Original Unit": unit,
         "Schedule Item Code": item.get("Schedule Item Code"),
         "Material Category": item.get("Material Category"),
         "Discipline": item.get("Discipline"),
@@ -234,72 +297,75 @@ for item in all_extracted_items:
         "Material / Product": item.get("Material / Product"),
         "All Materials Detected": all_mats,
         "Material Confidence": item.get("Material Confidence"),
-        "Grade": item.get("Grade"),
+        "Grade": item.get("Grade"),  # <--- Now safely pulls the Regexed value!
         "Mix Ratio": item.get("Mix Ratio"),
-        "Standard / Code Reference": item.get("Standard / Code Reference"),
+        "Standard / Code Reference": item.get("Standard / Code Reference"), # <--- Now safely pulls the Regexed value!
         "Classification (Matched)": item.get("Classification (Matched)"),
-        "Length (mm)": len_mm,
-        "Width (mm)": width_mm,
+        "Length (mm)": safe_float(item.get("Length (mm)")),
+        "Width (mm)": safe_float(item.get("Width (mm)")),
         "Height (mm)": safe_float(item.get("Height (mm)")),
         "Thickness (mm)": thick_mm,
         "Depth (mm)": safe_float(item.get("Depth (mm)")),
         "Diameter (mm)": safe_float(item.get("Diameter (mm)")),
         "Unit Rate": item.get("Unit Rate"),
         "Total Cost": item.get("Total Cost"),
-        "Currency": "INR" if item.get("Unit Rate") or item.get("Total Cost") else "",
+        "Currency": "Rs.",
         "Schedule (DSR/SOR)": "DSR 1989", 
         "Density (kg/m³)": density,
         "GWP / kg (kg CO₂e/kg)": gwp,
         "Comment": final_comment
     }
+    
 
-    # GROUP 3: Dynamic Dimensional Routing & Derived Quantities Math
     vol_m3, area_m2, weight_kg = "", "", ""
     derived_q, derived_u, derived_b = "", "", ""
 
-    if qty and qty > 0:
-        if "cum" in unit or "cu.m" in unit or "m3" in unit:
-            vol_m3 = qty
-            row_dict["Volume (m³)"] = qty
-        elif "sqm" in unit or "sq.m" in unit or "m2" in unit:
-            area_m2 = qty
-            row_dict["Area (m²)"] = qty
-            # Convert Area to Volume if Thickness is found
+    if qty and float(qty) > 0:
+        q = float(qty)
+        if unit == "cum":
+            vol_m3 = q
+            row_dict["Volume (m³)"] = q
+        elif unit == "sqm":
+            area_m2 = q
+            row_dict["Area (m²)"] = q
             if thick_mm:
-                derived_q = round(qty * (thick_mm / 1000.0), 3)
+                derived_q = round(q * (thick_mm / 1000.0), 3)
                 derived_u = "Volume (m³)"
-                derived_b = f"Area ({qty}) * Thickness ({thick_mm}mm)"
-                vol_m3 = derived_q # Use derived volume for carbon math
-        elif unit in ["rm", "m", "metre", "meter"]:
-            row_dict["Length (m)"] = qty
-        elif "kg" in unit:
-            weight_kg = qty
-            row_dict["Weight (kg)"] = qty
-        elif "quintal" in unit:
-            weight_kg = qty * 100
+                derived_b = f"Area ({q}) * Thickness ({thick_mm}mm)"
+                vol_m3 = derived_q 
+        elif unit == "m":
+            row_dict["Length (m)"] = q
+        elif unit == "kg":
+            weight_kg = q
+            row_dict["Weight (kg)"] = q
+        elif unit == "quintal":
+            weight_kg = q * 100
             row_dict["Weight (kg)"] = weight_kg
-        elif "mt" in unit or "tonne" in unit:
-            weight_kg = qty * 1000
+        elif unit == "tonne":
+            weight_kg = q * 1000
             row_dict["Weight (kg)"] = weight_kg
-        elif "each" in unit or "nos" in unit:
-            row_dict["Count (Nos)"] = qty
+        elif unit == "nos":
+            row_dict["Count (Nos)"] = q
 
     row_dict["Derived Quantity"] = derived_q
     row_dict["Derived Quantity Unit"] = derived_u
     row_dict["Derived Quantity Basis"] = derived_b
 
-    # Final Embodied Carbon Math (Prioritizes Derived Volume over raw Area)
     if vol_m3 and density and gwp:
         row_dict["Embodied Carbon A1-A3 (kg CO₂e)"] = round(vol_m3 * density * gwp, 2)
     elif weight_kg and gwp:
         row_dict["Embodied Carbon A1-A3 (kg CO₂e)"] = round(weight_kg * gwp, 2)
 
-    # Append to worksheet
     row_values = [row_dict.get(col, "") for col in headers]
     ws.append(row_values)
 
+    # --- NEW: APPLY WRAP TEXT & TOP ALIGNMENT ---
+    for cell in ws[ws.max_row]:
+        cell.alignment = Alignment(wrap_text=True, vertical='top')
+    # --------------------------------------------
+
 wb.save("output/passport_filled.xlsx")
-print("✔ Excel saved: GMAP IDs assigned, Derived Math applied, and Audit Comments logged.")
+print("✔ Excel saved: Unit Normalization, Wrap Text, and Special Edge Cases handled.")
 
 # ---------------------------------------------------------
 # 7. GENERATE VISUALIZATION CHART
