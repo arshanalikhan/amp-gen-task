@@ -6,11 +6,11 @@
 3. Run the pipeline: `python src/main.py`
 
 ## Honest Time Estimate
-- **Total Hours Spent:** [Fill this in at the end]
-- **Items Extracted:** [X] of 64
+- **Total Hours Spent:** [11]
+- **Items Extracted:** [64] of 64
 
 ## Bonus Objectives Attempted
-- [ ] B1: Live Deployment (URL: ...)
+- [ ] B1: Live Deployment [(URL: ...)](https://ampgentask.streamlit.app/)
 - [ ] B2: EPD Carbon Data included
 - [ ] B3: Metadata Extraction (`output/building_meta.json`)
-- [ ] B4: Video Walkthrough (URL: ...)
+- [ ] B4: Video Walkthrough [(URL: ...)](https://youtu.be/r1BkZNDuAok)
